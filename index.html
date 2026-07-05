@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Светлой памяти Ярослава · In liebevoller Erinnerung an Yaroslav</title>
+<meta name="description" content="Страница памяти Ярослава — информация о прощании, воспоминания, поддержка семьи. Gedenkseite für Yaroslav — Trauerfeier, Erinnerungen, Unterstützung der Familie.">
+<meta name="robots" content="noindex">
+<style>
+  :root{
+    --bg:#12141a; --bg-soft:#1a1d26; --card:#20242f; --line:#333846;
+    --text:#e8e6df; --muted:#a8a49a; --gold:#c9a86a; --gold-soft:#e6cfa3;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:Georgia,'Times New Roman',serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px; margin:0 auto; padding:0 20px}
+
+  /* language toggle */
+  .lang-bar{position:sticky; top:0; z-index:10; background:rgba(18,20,26,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+  .lang-bar .wrap{display:flex; justify-content:flex-end; gap:8px; padding:10px 20px}
+  .lang-btn{
+    font-family:inherit; font-size:14px; letter-spacing:.06em;
+    background:none; border:1px solid var(--line); color:var(--muted);
+    padding:6px 16px; border-radius:20px; cursor:pointer; transition:all .25s;
+  }
+  .lang-btn.active{border-color:var(--gold); color:var(--gold)}
+  .lang-btn:hover{color:var(--gold-soft)}
+
+  /* hero */
+  header.hero{text-align:center; padding:72px 20px 56px}
+  .candle{width:44px; height:64px; margin:0 auto 28px; position:relative}
+  .flame{
+    width:14px; height:22px; margin:0 auto; border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
+    background:radial-gradient(ellipse at bottom,#ffd27a 0%,#e8963a 60%,rgba(232,150,58,0) 100%);
+    animation:flicker 2.8s infinite ease-in-out; transform-origin:bottom center;
+    box-shadow:0 0 24px 8px rgba(255,196,110,.25);
+  }
+  .wick{width:2px; height:5px; background:#555; margin:0 auto}
+  .wax{width:22px; height:34px; margin:2px auto 0; border-radius:5px 5px 7px 7px;
+    background:linear-gradient(180deg,#efe7d6,#cfc6b2)}
+  @keyframes flicker{
+    0%,100%{transform:scale(1) rotate(-1deg)} 25%{transform:scale(1.06) rotate(1.5deg)}
+    50%{transform:scale(.95) rotate(-2deg)} 75%{transform:scale(1.04) rotate(.5deg)}
+  }
+  .hero .pre{color:var(--muted); font-style:italic; letter-spacing:.08em; font-size:15px}
+  .hero h1{
+    font-size:clamp(38px,8vw,58px); font-weight:normal; color:var(--gold-soft);
+    letter-spacing:.04em; margin:14px 0 10px;
+  }
+  .hero .dates{color:var(--muted); font-size:17px; letter-spacing:.12em}
+  .hero .epigraph{max-width:480px; margin:32px auto 0; color:var(--muted); font-style:italic; font-size:16.5px}
+  .photo-frame{
+    width:min(240px,60vw); aspect-ratio:3/4; margin:36px auto 0; border-radius:6px;
+    border:1px solid var(--line); background:var(--bg-soft);
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+    color:var(--muted); font-size:13px; font-style:italic; padding:12px; text-align:center;
+  }
+  .photo-frame img{width:100%; height:100%; object-fit:cover}
+
+  /* sections */
+  section{padding:44px 0; border-top:1px solid var(--line)}
+  h2{
+    font-weight:normal; font-size:24px; color:var(--gold); letter-spacing:.05em;
+    text-align:center; margin-bottom:8px;
+  }
+  .h2-sub{text-align:center; color:var(--muted); font-size:14.5px; font-style:italic; margin-bottom:28px}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:26px 24px; margin-bottom:16px;
+  }
+  .card h3{font-weight:normal; color:var(--gold-soft); font-size:19px; margin-bottom:10px}
+  .card .when{font-size:22px; color:var(--text); margin-bottom:6px}
+  .card .where{color:var(--muted); white-space:pre-line}
+  .card p{margin-top:12px}
+  a{color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(201,168,106,.35)}
+  a:hover{color:var(--gold-soft)}
+  .btn{
+    display:inline-block; margin-top:16px; padding:12px 26px; border-radius:26px;
+    border:1px solid var(--gold); color:var(--gold); font-size:15.5px; letter-spacing:.03em;
+    transition:all .25s; background:none; cursor:pointer; font-family:inherit;
+  }
+  .btn:hover{background:var(--gold); color:var(--bg)}
+  .btn.solid{background:var(--gold); color:var(--bg)}
+  .btn.solid:hover{background:var(--gold-soft)}
+  .note{font-size:14px; color:var(--muted); font-style:italic; margin-top:14px}
+  .muted{color:var(--muted)}
+  ul.plain{list-style:none}
+  ul.plain li{padding:6px 0 6px 22px; position:relative}
+  ul.plain li::before{content:"·"; color:var(--gold); position:absolute; left:6px; font-size:22px; line-height:1}
+
+  footer{padding:52px 20px 64px; text-align:center; color:var(--muted); font-size:14.5px; font-style:italic}
+  footer .line{width:60px; height:1px; background:var(--gold); margin:0 auto 24px; opacity:.6}
+
+  [data-lang]{display:none}
+  html.ru [data-lang="ru"]{display:revert}
+  html.de [data-lang="de"]{display:revert}
+</style>
+</head>
+<body>
+
+<nav class="lang-bar" aria-label="Sprache / Язык">
+  <div class="wrap">
+    <button class="lang-btn" id="btn-ru" onclick="setLang('ru')">Русский</button>
+    <button class="lang-btn" id="btn-de" onclick="setLang('de')">Deutsch</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="candle"><div class="flame"></div><div class="wick"></div><div class="wax"></div></div>
+  <p class="pre" data-lang="ru">Светлой памяти</p>
+  <p class="pre" data-lang="de">In liebevoller Erinnerung an</p>
+  <h1 id="name">Ярослав</h1>
+  <p class="dates" id="dates"><!-- напр.: 1990 – 2026 --></p>
+  <div class="photo-frame" id="photoFrame">
+    <span data-lang="ru">Здесь будет фотография Ярослава</span>
+    <span data-lang="de">Hier kommt ein Foto von Yaroslav</span>
+  </div>
+  <p class="epigraph" data-lang="ru">Говорят, человек жив, пока о нём помнят.<br>Эта страница — чтобы помнить.</p>
+  <p class="epigraph" data-lang="de">Man sagt, ein Mensch lebt weiter, solange man sich an ihn erinnert.<br>Diese Seite ist dafür da — um sich zu erinnern.</p>
+</header>
+
+<div class="wrap">
+
+<!-- ПРОЩАНИЕ / TRAUERFEIER -->
+<section id="abschied">
+  <h2 data-lang="ru">Прощание</h2>
+  <h2 data-lang="de">Abschied</h2>
+  <p class="h2-sub" data-lang="ru">Церемония открыта для всех, кто знал и ценил Ярослава</p>
+  <p class="h2-sub" data-lang="de">Die Trauerfeier ist offen für alle, die Yaroslav kannten und schätzten</p>
+
+  <div class="card">
+    <h3 data-lang="ru">Церемония прощания</h3>
+    <h3 data-lang="de">Trauerfeier</h3>
+    <p class="when">10.07.2026 · 10:00</p>
+    <p class="where">Ramsaier Bestattungen GmbH
+Katzenbachstraße 58
+70563 Stuttgart-Vaihingen</p>
+    <a class="btn" target="_blank" rel="noopener" href="https://maps.google.com/?q=Ramsaier+Bestattungen+GmbH,+Katzenbachstra%C3%9Fe+58,+70563+Stuttgart">
+      <span data-lang="ru">Открыть на карте</span><span data-lang="de">Auf der Karte öffnen</span>
+    </a>
+  </div>
+
+  <div class="card">
+    <h3 data-lang="ru">Поминальный обед</h3>
+    <h3 data-lang="de">Leichenschmaus</h3>
+    <p class="when">10.07.2026 · 13:00</p>
+    <p class="where">Julius-Hölder-Straße 43
+70597 Stuttgart-Degerloch</p>
+    <a class="btn" target="_blank" rel="noopener" href="https://maps.google.com/?q=Julius-H%C3%B6lder-Stra%C3%9Fe+43,+70597+Stuttgart">
+      <span data-lang="ru">Открыть на карте</span><span data-lang="de">Auf der Karte öffnen</span>
+    </a>
+  </div>
+
+  <p data-lang="ru" class="muted">В этот день мы хотим вместе почтить его память, вспомнить светлые моменты и проводить его в последний путь. Каждый, кто знал его, ценил или хочет проститься, — искренне желанный гость.</p>
+  <p data-lang="de" class="muted">An diesem Tag möchten wir gemeinsam innehalten, uns erinnern und ihm die letzte Ehre erweisen. Jeder, der ihn kannte, schätzte oder sich verabschieden möchte, ist von Herzen willkommen.</p>
+</section>
+
+<!-- УЧАСТИЕ / RSVP -->
+<section id="rsvp">
+  <h2 data-lang="ru">Сообщить о присутствии</h2>
+  <h2 data-lang="de">Teilnahme mitteilen</h2>
+  <p class="h2-sub" data-lang="ru">Чтобы семья могла всё подготовить, пожалуйста, дайте знать, придёте ли вы</p>
+  <p class="h2-sub" data-lang="de">Damit die Familie planen kann, gib bitte kurz Bescheid, ob du kommst</p>
+
+  <div class="card" style="text-align:center">
+    <p data-lang="ru">Напишите, планируете ли вы быть на церемонии прощания и / или на поминальном обеде, и сколько вас будет.</p>
+    <p data-lang="de">Schreib uns, ob du zur Trauerfeier und / oder zum Leichenschmaus kommst und mit wie vielen Personen.</p>
+    <a class="btn solid" id="rsvpWhatsapp" target="_blank" rel="noopener" href="#">
+      <span data-lang="ru">Ответить в WhatsApp</span><span data-lang="de">Per WhatsApp antworten</span>
+    </a>
+    <p class="note" data-lang="ru">Или просто ответьте тому, от кого вы получили ссылку на эту страницу.</p>
+    <p class="note" data-lang="de">Oder antworte einfach der Person, von der du den Link zu dieser Seite bekommen hast.</p>
+  </div>
+</section>
+
+<!-- ПОДДЕРЖКА / UNTERSTÜTZUNG -->
+<section id="support">
+  <h2 data-lang="ru">Поддержать семью</h2>
+  <h2 data-lang="de">Die Familie unterstützen</h2>
+  <p class="h2-sub" data-lang="ru">По желанию — любая помощь принимается с благодарностью</p>
+  <p class="h2-sub" data-lang="de">Freiwillig — jede Hilfe wird dankbar angenommen</p>
+
+  <div class="card" style="text-align:center">
+    <p data-lang="ru">Николь, родная сестра Ярослава, организовала сбор средств на организацию прощания и похорон. Если вы хотите поддержать семью, это можно сделать через PayPal.</p>
+    <p data-lang="de">Nicole, Yaroslavs Schwester, hat eine Spendensammlung für die Trauerfeier und Beerdigung organisiert. Wer die Familie unterstützen möchte, kann das über PayPal tun.</p>
+    <a class="btn solid" id="paypalLink" target="_blank" rel="noopener" href="#">
+      <span data-lang="ru">Перейти к сбору (PayPal)</span><span data-lang="de">Zur Spendensammlung (PayPal)</span>
+    </a>
+    <p class="note" data-lang="ru">Сумма — любая. Важен не размер, а участие.</p>
+    <p class="note" data-lang="de">Jeder Betrag zählt. Es geht nicht um die Höhe, sondern um die Geste.</p>
+  </div>
+</section>
+
+<!-- ВОСПОМИНАНИЯ / ERINNERUNGEN -->
+<section id="memories">
+  <h2 data-lang="ru">Воспоминания</h2>
+  <h2 data-lang="de">Erinnerungen</h2>
+  <p class="h2-sub" data-lang="ru">Фотографии, видео и истории — всё, что помогает помнить</p>
+  <p class="h2-sub" data-lang="de">Fotos, Videos und Geschichten — alles, was die Erinnerung lebendig hält</p>
+
+  <div class="card">
+    <h3 data-lang="ru">Поделитесь фото и видео</h3>
+    <h3 data-lang="de">Teile Fotos und Videos</h3>
+    <p data-lang="ru">Если у вас есть фотографии или видео с Ярославом, загрузите их в общий альбом — семья соберёт их в одном месте.</p>
+    <p data-lang="de">Wenn du Fotos oder Videos mit Yaroslav hast, lade sie in das gemeinsame Album hoch — die Familie sammelt alles an einem Ort.</p>
+    <a class="btn" id="albumLink" target="_blank" rel="noopener" href="#">
+      <span data-lang="ru">Открыть общий альбом</span><span data-lang="de">Gemeinsames Album öffnen</span>
+    </a>
+  </div>
+
+  <div class="card">
+    <h3 data-lang="ru">Оставьте слова памяти</h3>
+    <h3 data-lang="de">Hinterlasse ein paar Worte</h3>
+    <p data-lang="ru">Напишите пару слов, историю или воспоминание — семья прочитает каждое сообщение и сохранит его в книге памяти.</p>
+    <p data-lang="de">Schreib ein paar Worte, eine Geschichte oder eine Erinnerung — die Familie liest jede Nachricht und bewahrt sie im Gedenkbuch auf.</p>
+    <a class="btn" id="guestbookLink" target="_blank" rel="noopener" href="#">
+      <span data-lang="ru">Написать воспоминание</span><span data-lang="de">Erinnerung schreiben</span>
+    </a>
+  </div>
+</section>
+
+<!-- ЕГО ДЕЛО / SEIN PROJEKT -->
+<section id="project">
+  <h2 data-lang="ru">Его дело продолжается</h2>
+  <h2 data-lang="de">Sein Projekt lebt weiter</h2>
+
+  <div class="card">
+    <p data-lang="ru">У Ярослава был проект, который он очень хотел довести до конца. Мы — его друзья Денис и Игорь — взяли на себя обязательство завершить начатое им. Здесь мы будем рассказывать, как продвигается дело.</p>
+    <p data-lang="de">Yaroslav hatte ein Projekt, das er unbedingt zu Ende bringen wollte. Wir — seine Freunde Denis und Igor — haben es übernommen, sein Werk zu vollenden. Hier werden wir darüber berichten, wie es vorangeht.</p>
+    <p class="note" data-lang="ru">Подробности появятся здесь позже.</p>
+    <p class="note" data-lang="de">Weitere Details folgen an dieser Stelle.</p>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <div class="line"></div>
+  <p data-lang="ru">Человек жив, пока жива память о нём.<br>Спасибо, что вы здесь.</p>
+  <p data-lang="de">Ein Mensch lebt weiter, solange die Erinnerung an ihn lebt.<br>Danke, dass du hier bist.</p>
+</footer>
+
+<script>
+/* ============================================================
+   НАСТРОЙКИ СТРАНИЦЫ — заполните эти поля, остальное трогать не нужно
+   SEITEN-EINSTELLUNGEN — nur diese Felder ausfüllen
+   ============================================================ */
+const CONFIG = {
+  // Полное имя (напр. "Ярослав Иванов") — если пусто, останется "Ярослав"
+  fullName: "",
+  // Годы жизни, напр. "12.03.1990 – 28.06.2026"
+  dates: "",
+  // Путь к фото, напр. "photos/yaroslav.jpg" (положите файл в папку photos/)
+  photo: "",
+  // Номер WhatsApp Дениса для ответов о присутствии, в межд. формате без + и пробелов, напр. "4917612345678"
+  whatsapp: "",
+  // Ссылка на сбор PayPal от Николь, напр. "https://www.paypal.com/pool/..."
+  paypal: "",
+  // Ссылка на общий фотоальбом (Google Photos: альбом → поделиться → "разрешить добавлять")
+  album: "",
+  // Ссылка на форму «слова памяти» (Google Forms) — или оставьте пустым, будет письмо на email
+  guestbookForm: "",
+  // Email для воспоминаний, если формы нет
+  email: "happyskydan@gmail.com"
+};
+/* ============================================================ */
+
+function setLang(l){
+  document.documentElement.className = l;
+  document.getElementById('btn-ru').classList.toggle('active', l==='ru');
+  document.getElementById('btn-de').classList.toggle('active', l==='de');
+  try{ localStorage.setItem('memlang', l); }catch(e){}
+}
+(function(){
+  let saved = null;
+  try{ saved = localStorage.getItem('memlang'); }catch(e){}
+  if(saved === 'ru' || saved === 'de'){ setLang(saved); return; }
+  setLang((navigator.language||'').toLowerCase().startsWith('de') ? 'de' : 'ru');
+})();
+
+if(CONFIG.fullName) document.getElementById('name').textContent = CONFIG.fullName;
+if(CONFIG.dates) document.getElementById('dates').textContent = CONFIG.dates;
+if(CONFIG.photo){
+  document.getElementById('photoFrame').innerHTML = '<img src="'+CONFIG.photo+'" alt="Yaroslav">';
+}
+
+const rsvpMsg = encodeURIComponent(
+  "Здравствуйте! Я по поводу прощания с Ярославом 10.07.\n" +
+  "Приду на церемонию (10:00): да/нет\n" +
+  "Приду на поминальный обед (13:00): да/нет\n" +
+  "Количество человек: \n" +
+  "Имя, фамилия: "
+);
+const rsvpBtn = document.getElementById('rsvpWhatsapp');
+if(CONFIG.whatsapp){ rsvpBtn.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + rsvpMsg; }
+else{ rsvpBtn.style.display = "none"; }
+
+const pp = document.getElementById('paypalLink');
+if(CONFIG.paypal){ pp.href = CONFIG.paypal; } else { pp.closest('section').style.display='none'; }
+
+const al = document.getElementById('albumLink');
+if(CONFIG.album){ al.href = CONFIG.album; } else { al.style.display='none'; }
+
+const gb = document.getElementById('guestbookLink');
+if(CONFIG.guestbookForm){ gb.href = CONFIG.guestbookForm; }
+else if(CONFIG.email){ gb.href = "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent("Воспоминание о Ярославе / Erinnerung an Yaroslav"); }
+else{ gb.style.display='none'; }
+</script>
+</body>
+</html>

@@ -93,6 +93,27 @@
   ul.plain li{padding:6px 0 6px 22px; position:relative}
   ul.plain li::before{content:"·"; color:var(--gold); position:absolute; left:6px; font-size:22px; line-height:1}
 
+  .quote-list blockquote{
+    margin:0 0 18px; padding:18px 22px 18px 26px; position:relative;
+    background:var(--card); border:1px solid var(--line); border-left:2px solid var(--gold);
+    border-radius:0 10px 10px 0; font-size:17.5px; font-style:italic; color:var(--gold-soft);
+  }
+  .quote-list .q-de{display:block; margin-top:8px; font-size:14px; color:var(--muted); font-style:normal}
+  html.ru .quote-list .q-de{display:none}
+  .words{margin-top:30px; text-align:center}
+  .words-intro{color:var(--muted); font-style:italic; font-size:15px; margin-bottom:14px}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; justify-content:center}
+  .chips span{
+    border:1px solid var(--line); color:var(--gold-soft); background:var(--bg-soft);
+    padding:6px 14px; border-radius:18px; font-size:14.5px; font-style:italic;
+  }
+  .pearl{
+    width:26px; height:26px; margin:2px auto 18px; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #6a6f7d 0%, #23262e 45%, #0b0c10 100%);
+    box-shadow:0 0 0 1px rgba(201,168,106,.45), 0 4px 14px rgba(0,0,0,.6),
+               inset -2px -3px 6px rgba(0,0,0,.7);
+  }
+
   .gallery-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px}
   .gallery-grid img{
     width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px;
@@ -229,6 +250,51 @@ Katzenbachstraße 58
   <img id="lightboxImg" src="" alt="">
 </div>
 
+<!-- ЕГО СЛОВАМИ / IN SEINEN WORTEN -->
+<section id="quotes">
+  <h2 data-lang="ru">Его словами</h2>
+  <h2 data-lang="de">In seinen Worten</h2>
+  <p class="h2-sub" data-lang="ru">Из его сообщений — таким он был в каждом дне</p>
+  <p class="h2-sub" data-lang="de">Aus seinen Nachrichten — so war er, jeden Tag (Originale auf Russisch)</p>
+
+  <div class="quote-list">
+    <blockquote>«Это мы с тобой. Против всего мира.»
+      <span class="q-de">„Das sind wir zwei. Gegen die ganze Welt.“</span></blockquote>
+    <blockquote>«Я выиграл с тобой уже лотерею по жизни.»
+      <span class="q-de">„Mit dir habe ich im Leben schon die Lotterie gewonnen.“</span></blockquote>
+    <blockquote>«Делать то, что любишь. А не то, что надо.»
+      <span class="q-de">„Das tun, was man liebt. Nicht das, was man muss.“</span></blockquote>
+    <blockquote>«Чем громче падаешь — тем быстрее встанешь.»
+      <span class="q-de">„Je lauter du fällst, desto schneller stehst du wieder auf.“</span></blockquote>
+    <blockquote>«Упал, встал и идёшь дальше. Так и живём, бро.»
+      <span class="q-de">„Hinfallen, aufstehen, weitergehen. So leben wir, Bro.“</span></blockquote>
+    <blockquote>«Я хоть и далеко, но поверь — как рядом.»
+      <span class="q-de">„Ich bin zwar weit weg, aber glaub mir — als wäre ich direkt neben dir.“</span></blockquote>
+    <blockquote>«Я брошу всё, чем занимаюсь, и поговорю с тобой.»
+      <span class="q-de">„Ich lasse alles stehen und liegen und rede mit dir.“</span></blockquote>
+    <blockquote>«Твой близкий — мой близкий.»
+      <span class="q-de">„Wer dir nahesteht, steht auch mir nahe.“</span></blockquote>
+    <blockquote>«Ты для меня семья!!!»
+      <span class="q-de">„Du bist für mich Familie!!!“</span></blockquote>
+    <blockquote>«Всё будет, братка. Справимся ❤️»
+      <span class="q-de">„Alles wird gut, Bruder. Wir schaffen das ❤️“</span></blockquote>
+    <blockquote>«Сейчас или некогда.»
+      <span class="q-de">„Jetzt oder nie.“</span></blockquote>
+    <blockquote>«Пускай живёт в нас самурай.»
+      <span class="q-de">„Möge der Samurai in uns weiterleben.“</span></blockquote>
+  </div>
+
+  <div class="words">
+    <p class="words-intro" data-lang="ru">И его словечки, которые невозможно забыть:</p>
+    <p class="words-intro" data-lang="de">Und seine Wörter, die man nie vergisst:</p>
+    <div class="chips">
+      <span>Салют бро</span><span>Чэк</span><span>Шо ты там</span><span>Обнял. На связи</span>
+      <span>Бомба фантастик</span><span>По нулям!!!</span><span>Все буде добре</span>
+      <span>Споки доки</span><span>Скучаю за тобой</span><span>Погнали</span>
+    </div>
+  </div>
+</section>
+
 <!-- ВОСПОМИНАНИЯ / ERINNERUNGEN -->
 <section id="memories">
   <h2 data-lang="ru">Воспоминания</h2>
@@ -263,10 +329,15 @@ Katzenbachstraße 58
   <h2 data-lang="de">Sein Projekt lebt weiter</h2>
 
   <div class="card">
-    <p data-lang="ru">У Ярослава был проект, который он очень хотел довести до конца. Мы — его друзья Денис и Игорь — взяли на себя обязательство завершить начатое им. Здесь мы будем рассказывать, как продвигается дело.</p>
-    <p data-lang="de">Yaroslav hatte ein Projekt, das er unbedingt zu Ende bringen wollte. Wir — seine Freunde Denis und Igor — haben es übernommen, sein Werk zu vollenden. Hier werden wir darüber berichten, wie es vorangeht.</p>
-    <p class="note" data-lang="ru">Подробности появятся здесь позже.</p>
-    <p class="note" data-lang="de">Weitere Details folgen an dieser Stelle.</p>
+    <div class="pearl" aria-hidden="true"></div>
+    <p data-lang="ru">Ярослав был поваром по призванию. Он собирал вокруг себя команды поваров-фрилансеров — своих «солдатиков» — и вытягивал события на сотни и тысячи гостей: VIP-кейтеринг в музее Mercedes-Benz, Hugo Boss Open, большие сезоны, которые он проходил первым и уходил с кухни последним.</p>
+    <p data-lang="de">Yaroslav war Koch aus Berufung. Er versammelte Teams von Freelancer-Köchen um sich — seine „Soldaten" — und stemmte Events für Hunderte und Tausende Gäste: VIP-Catering im Mercedes-Benz Museum, die Hugo Boss Open, lange Saisons, in denen er als Erster kam und als Letzter die Küche verließ.</p>
+    <p data-lang="ru">И у него была мечта — <strong>Black Pearl</strong>: платформа, которая наведёт порядок в мире гастро-фриланса и будет защищать таких, как его ребята. Чёрный цвет, золото и одна чёрная жемчужина — он продумал всё до мелочей и до последних недель сам писал код прототипа.</p>
+    <p data-lang="de">Und er hatte einen Traum — <strong>Black Pearl</strong>: eine Plattform, die Ordnung in die Welt der Gastro-Freelancer bringt und Menschen wie seine Jungs schützt. Schwarz, Gold und eine einzige schwarze Perle — er hatte alles durchdacht und schrieb bis zuletzt selbst am Code des Prototyps.</p>
+    <p data-lang="ru">Мы — Денис и Игорь — доводим Black Pearl до конца. Эта страница не случайно оформлена в чёрном и золотом: это его цвета.</p>
+    <p data-lang="de">Wir — Denis und Igor — bringen Black Pearl zu Ende. Diese Seite ist nicht zufällig in Schwarz und Gold gehalten: Es sind seine Farben.</p>
+    <p class="note" data-lang="ru">Новости о проекте будут появляться здесь.</p>
+    <p class="note" data-lang="de">Neuigkeiten zum Projekt erscheinen an dieser Stelle.</p>
   </div>
 </section>
 

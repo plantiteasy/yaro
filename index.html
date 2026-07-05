@@ -360,7 +360,7 @@ const CONFIG = {
   // Годы жизни, напр. "12.03.1990 – 28.06.2026"
   dates: "",
   // Путь к фото, напр. "photos/yaroslav.jpg" (положите файл в папку photos/)
-  photo: "",
+  photo: "photos/portrait.jpg",
   // Номер WhatsApp Дениса для ответов о присутствии, в межд. формате без + и пробелов, напр. "4917612345678"
   whatsapp: "",
   // Ссылка на сбор PayPal от Николь, напр. "https://www.paypal.com/pool/..."
@@ -402,6 +402,11 @@ const rsvpMsg = encodeURIComponent(
 );
 const rsvpBtn = document.getElementById('rsvpWhatsapp');
 if(CONFIG.whatsapp){ rsvpBtn.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + rsvpMsg; }
+else if(CONFIG.email){
+  rsvpBtn.href = "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent("Прощание с Ярославом 10.07 / Trauerfeier 10.07") + "&body=" + rsvpMsg;
+  rsvpBtn.querySelectorAll('[data-lang="ru"]').forEach(e=>e.textContent="Ответить по email");
+  rsvpBtn.querySelectorAll('[data-lang="de"]').forEach(e=>e.textContent="Per E-Mail antworten");
+}
 else{ rsvpBtn.style.display = "none"; }
 
 const pp = document.getElementById('paypalLink');

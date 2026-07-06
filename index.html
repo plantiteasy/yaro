@@ -93,6 +93,24 @@
   ul.plain li{padding:6px 0 6px 22px; position:relative}
   ul.plain li::before{content:"·"; color:var(--gold); position:absolute; left:6px; font-size:22px; line-height:1}
 
+  .infobox{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:10px 22px; margin-bottom:30px;
+  }
+  .ib-row{
+    display:flex; justify-content:space-between; align-items:baseline; gap:16px;
+    padding:11px 0; border-bottom:1px solid var(--line); font-size:15px;
+  }
+  .ib-row:last-child{border-bottom:none}
+  .ib-row > span{color:var(--muted); font-style:italic; white-space:nowrap}
+  .ib-row > strong{font-weight:normal; color:var(--gold-soft); text-align:right}
+  .bio-ch{margin-bottom:28px}
+  .bio-ch h3{
+    font-weight:normal; color:var(--gold); font-size:20px; letter-spacing:.04em;
+    margin-bottom:10px; padding-bottom:6px; border-bottom:1px solid var(--line);
+  }
+  .bio-ch p{font-size:16.5px}
+
   .quote-list blockquote{
     margin:0 0 18px; padding:18px 22px 18px 26px; position:relative;
     background:var(--card); border:1px solid var(--line); border-left:2px solid var(--gold);
@@ -160,6 +178,49 @@
 </header>
 
 <div class="wrap">
+
+<!-- ЕГО ПУТЬ / SEIN WEG -->
+<section id="bio">
+  <h2 data-lang="ru">Его путь</h2>
+  <h2 data-lang="de">Sein Weg</h2>
+  <p class="h2-sub" data-lang="ru">Не справка — портрет</p>
+  <p class="h2-sub" data-lang="de">Keine Chronik — ein Porträt</p>
+
+  <div class="infobox">
+    <div class="ib-row"><span data-lang="ru">Имя</span><span data-lang="de">Name</span><strong>Yaroslav Polskyy · Ярик</strong></div>
+    <div class="ib-row"><span data-lang="ru">Родился</span><span data-lang="de">Geboren</span><strong>14 января 1990</strong></div>
+    <div class="ib-row"><span data-lang="ru">Призвание</span><span data-lang="de">Berufung</span><strong data-lang="ru">Шеф-повар</strong><strong data-lang="de">Koch mit Leib und Seele</strong></div>
+    <div class="ib-row"><span data-lang="ru">Фирменное приветствие</span><span data-lang="de">Seine Begrüßung</span><strong>«Салют бро»</strong></div>
+    <div class="ib-row"><span data-lang="ru">Его «понял»</span><span data-lang="de">Sein „verstanden"</span><strong>«Чэк»</strong></div>
+    <div class="ib-row"><span data-lang="ru">Прощался словами</span><span data-lang="de">Sein Abschiedsgruß</span><strong>«Обнял. На связи»</strong></div>
+    <div class="ib-row"><span data-lang="ru">Мечтал</span><span data-lang="de">Sein Traum</span><strong data-lang="ru">Black Pearl и дом у моря в Испании</strong><strong data-lang="de">Black Pearl und ein Haus am Meer in Spanien</strong></div>
+    <div class="ib-row"><span data-lang="ru">Верил</span><span data-lang="de">Er glaubte</span><strong data-lang="ru">«Ниже пола не упаду»</strong><strong data-lang="de">„Tiefer als der Boden falle ich nicht"</strong></div>
+  </div>
+
+  <div class="bio-ch">
+    <h3 data-lang="ru">Повар</h3><h3 data-lang="de">Der Koch</h3>
+    <p data-lang="ru">Ярослав был поваром не по диплому, а по природе. Он проходил сезоны, в которые люди ломаются: смены по четырнадцать-шестнадцать часов, ночные поезда, ножи, наточенные перед каждым сервисом. Он кормил сотни и тысячи людей — от VIP-кейтеринга в музее Mercedes-Benz до Hugo Boss Open — и собирал вокруг себя команды поваров-фрилансеров, которых с гордостью называл «мои солдатики». Он мог один вытащить мероприятие, с которого все ушли, — и рассказать об этом так, что все смеялись.</p>
+    <p data-lang="de">Yaroslav war Koch nicht auf dem Papier, sondern von Natur aus. Er stand Saisons durch, an denen andere zerbrechen: Schichten von vierzehn, sechzehn Stunden, Nachtzüge, Messer, vor jedem Service frisch geschärft. Er bekochte Hunderte und Tausende — vom VIP-Catering im Mercedes-Benz Museum bis zu den Hugo Boss Open — und versammelte Teams von Freelancer-Köchen um sich, die er stolz „meine Soldaten" nannte. Er konnte ein Event allein retten, von dem alle davongelaufen waren — und hinterher so davon erzählen, dass alle lachten.</p>
+  </div>
+
+  <div class="bio-ch">
+    <h3 data-lang="ru">Друг</h3><h3 data-lang="de">Der Freund</h3>
+    <p data-lang="ru">Дружить он умел так, как мало кто умеет. «Я брошу всё, чем занимаюсь, и поговорю с тобой» — это не фраза, он правда бросал. Он приезжал ночью, отдавал последнее, оставлял лазанью в холодильнике друга и ключи «там, где всегда». Он вёл честный счёт до копейки и радовался как ребёнок, когда выходило «по нулям», — а сверху всё равно докидывал подарок. Когда у его людей случалась беда, он говорил: «Ты не одна. Есть я, есть Игорь». И это всегда была правда.</p>
+    <p data-lang="de">Freundschaft konnte er wie kaum ein anderer. „Ich lasse alles stehen und liegen und rede mit dir" — das war kein Spruch, er ließ wirklich alles stehen. Er kam mitten in der Nacht, gab sein Letztes, hinterließ Lasagne im Kühlschrank des Freundes und den Schlüssel „dort, wo immer". Er führte ehrlich Buch bis auf den Cent und freute sich wie ein Kind, wenn es „auf null" aufging — und legte trotzdem noch ein Geschenk obendrauf. Wenn seinen Menschen etwas zustieß, sagte er: „Du bist nicht allein." Und das stimmte immer.</p>
+  </div>
+
+  <div class="bio-ch">
+    <h3 data-lang="ru">Мечтатель</h3><h3 data-lang="de">Der Träumer</h3>
+    <p data-lang="ru">Из любого объявления у него рождался проект: ферма с гусями к Рождеству, фестиваль в лесу, фудтрак со свежей рыбой на берегу моря. Две мечты были самыми упрямыми: Испания — «Давай менять жизнь, а не себя гробить! Погнали — ты и я» — и Black Pearl, платформа, которая наведёт порядок в мире гастро-фриланса и защитит таких ребят, как его повара. Чёрный цвет, золото, одна чёрная жемчужина — он продумал всё и до последних недель сам писал код. Его девиз на этот счёт был короткий: «Сейчас или некогда».</p>
+    <p data-lang="de">Aus jeder Kleinanzeige wurde bei ihm ein Projekt: ein Hof mit Gänsen zu Weihnachten, ein Festival im Wald, ein Foodtruck mit frischem Fisch am Meer. Zwei Träume waren die hartnäckigsten: Spanien — „Lass uns das Leben ändern, statt uns kaputtzumachen! Los — du und ich" — und Black Pearl, die Plattform, die Ordnung in die Welt der Gastro-Freelancer bringen und Jungs wie seine Köche schützen sollte. Schwarz, Gold, eine einzige schwarze Perle — er hatte alles durchdacht und schrieb bis zuletzt selbst am Code. Sein Motto dazu war kurz: „Jetzt oder nie."</p>
+  </div>
+
+  <div class="bio-ch">
+    <h3 data-lang="ru">Человек</h3><h3 data-lang="de">Der Mensch</h3>
+    <p data-lang="ru">Он писал «пожайлусто» и «модно» вместо «можно», смеялся всегда тройным «😂😂😂», забыл однажды собственный день рождения и сообщил о нём на следующий день. Он мог упасть — в жизни это случалось не раз — и у него была на это своя философия: «Чем громче падаешь, тем быстрее встанешь». Он безмерно любил своих: семью, друзей, своих поваров, свою кошку. Он умел просить прощения первым. И каждому, кто был ему дорог, он успел сказать об этом прямо — словами, которые теперь читаются как завещание: «Ты для меня семья».</p>
+    <p data-lang="de">Er schrieb Wörter auf seine eigene Art, lachte immer mit dreifachem „😂😂😂" und vergaß einmal seinen eigenen Geburtstag — er erwähnte ihn beiläufig am Tag danach. Er konnte fallen — das Leben hat es ihm nicht geschenkt — und hatte seine eigene Philosophie dafür: „Je lauter du fällst, desto schneller stehst du wieder auf." Er liebte die Seinen grenzenlos: seine Familie, seine Freunde, seine Köche, seine Katze. Er konnte als Erster um Verzeihung bitten. Und jedem, der ihm wichtig war, hat er es noch direkt gesagt — mit Worten, die sich heute wie ein Vermächtnis lesen: „Du bist für mich Familie."</p>
+  </div>
+</section>
 
 <!-- ПРОЩАНИЕ / TRAUERFEIER -->
 <section id="abschied">

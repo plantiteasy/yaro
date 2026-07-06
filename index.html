@@ -132,6 +132,28 @@
                inset -2px -3px 6px rgba(0,0,0,.7);
   }
 
+  .candle-wall{
+    display:flex; flex-wrap:wrap; gap:14px; justify-content:center;
+    margin-bottom:22px; min-height:40px;
+  }
+  .candle-empty{color:var(--muted); font-style:italic; font-size:14.5px; text-align:center}
+  .candle-item{
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:14px 16px 12px; width:min(200px,44vw); text-align:center;
+  }
+  .candle-item .candle{transform:scale(.6); margin:-8px auto 0; height:48px}
+  .candle-item .c-name{color:var(--gold-soft); font-size:14.5px; margin-top:2px}
+  .candle-item .c-text{color:var(--muted); font-size:13px; font-style:italic; margin-top:4px}
+  .candle-item .c-date{color:var(--muted); font-size:11.5px; margin-top:6px; opacity:.7}
+  .candle-form{margin-top:18px; text-align:left; display:flex; flex-direction:column; gap:14px}
+  .candle-form label{display:flex; flex-direction:column; gap:6px; color:var(--muted); font-size:14px; font-style:italic}
+  .candle-form input, .candle-form textarea{
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:8px;
+    color:var(--text); font-family:inherit; font-size:16px; padding:10px 12px;
+  }
+  .candle-form input:focus, .candle-form textarea:focus{outline:none; border-color:var(--gold)}
+  .candle-form .btn{align-self:center}
+
   .gallery-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px}
   .gallery-grid img{
     width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px;
@@ -289,6 +311,52 @@ Katzenbachstraße 58
     </a>
     <p class="note" data-lang="ru">Сумма — любая. Важен не размер, а участие.</p>
     <p class="note" data-lang="de">Jeder Betrag zählt. Es geht nicht um die Höhe, sondern um die Geste.</p>
+  </div>
+</section>
+
+<!-- СВЕЧИ ПАМЯТИ / GEDENKKERZEN -->
+<section id="candles">
+  <h2 data-lang="ru">Свечи памяти</h2>
+  <h2 data-lang="de">Gedenkkerzen</h2>
+  <p class="h2-sub" data-lang="ru">Зажгите свечу за упокой — с несколькими словами или молча</p>
+  <p class="h2-sub" data-lang="de">Zünde eine Gedenkkerze an — mit ein paar Worten oder still</p>
+
+  <div class="candle-wall" id="candleWall">
+    <p class="candle-empty" data-lang="ru">Здесь будут гореть свечи, зажжённые в память о нём.</p>
+    <p class="candle-empty" data-lang="de">Hier werden die Kerzen brennen, die zu seinem Gedenken entzündet wurden.</p>
+  </div>
+
+  <div class="card" style="text-align:center">
+    <button class="btn solid" id="candleToggle" type="button">
+      <span data-lang="ru">🕯 Зажечь свечу</span><span data-lang="de">🕯 Kerze anzünden</span>
+    </button>
+
+    <form id="candleForm" class="candle-form" hidden>
+      <label>
+        <span data-lang="ru">Ваше имя (как подписать свечу)</span>
+        <span data-lang="de">Dein Name (so wird die Kerze beschriftet)</span>
+        <input type="text" name="name" required maxlength="80" autocomplete="name">
+      </label>
+      <label>
+        <span data-lang="ru">Слова памяти (по желанию)</span>
+        <span data-lang="de">Ein paar Worte (freiwillig)</span>
+        <textarea name="text" rows="3" maxlength="600"></textarea>
+      </label>
+      <button class="btn solid" type="submit">
+        <span data-lang="ru">Зажечь</span><span data-lang="de">Anzünden</span>
+      </button>
+      <p class="note" data-lang="ru">Свеча сначала попадает к семье и появляется на стене после подтверждения.</p>
+      <p class="note" data-lang="de">Die Kerze geht zuerst an die Familie und erscheint nach Bestätigung auf der Wand.</p>
+    </form>
+
+    <div id="candleDone" hidden>
+      <div class="candle" style="margin-top:10px"><div class="flame"></div><div class="wick"></div><div class="wax"></div></div>
+      <p data-lang="ru">Спасибо. Ваша свеча передана семье — она загорится на этой стене после подтверждения.</p>
+      <p data-lang="de">Danke. Deine Kerze wurde an die Familie übermittelt — sie wird nach Bestätigung hier brennen.</p>
+      <a class="btn" id="candleWhatsapp" target="_blank" rel="noopener" href="#" hidden>
+        <span data-lang="ru">Продублировать в WhatsApp</span><span data-lang="de">Zusätzlich per WhatsApp senden</span>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -475,6 +543,67 @@ if(CONFIG.paypal){ pp.href = CONFIG.paypal; } else { pp.closest('section').style
 
 const al = document.getElementById('albumLink');
 if(CONFIG.album){ al.href = CONFIG.album; } else { al.style.display='none'; }
+
+/* Свечи: раскрытие формы, отправка на email семьи, стена одобренных из candles.json */
+document.getElementById('candleToggle').addEventListener('click', () => {
+  const f = document.getElementById('candleForm');
+  f.hidden = !f.hidden;
+  if(!f.hidden) f.querySelector('input[name=name]').focus();
+});
+document.getElementById('candleForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const form = e.target;
+  const name = form.name.value.trim();
+  const text = form.text.value.trim();
+  const btn = form.querySelector('button[type=submit]');
+  btn.disabled = true;
+  let sent = false;
+  try{
+    const r = await fetch("https://formsubmit.co/ajax/" + CONFIG.email, {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "Accept": "application/json"},
+      body: JSON.stringify({
+        _subject: "🕯 Свеча памяти от: " + name,
+        "Тип": "Свеча памяти (за упокой)",
+        "Имя": name,
+        "Слова": text || "(без слов, только свеча)",
+        _template: "table", _captcha: "false"
+      })
+    });
+    sent = r.ok;
+  }catch(err){ sent = false; }
+  if(!sent){
+    location.href = "mailto:" + CONFIG.email +
+      "?subject=" + encodeURIComponent("🕯 Свеча памяти от: " + name) +
+      "&body=" + encodeURIComponent("Имя: " + name + "\nСлова: " + (text || "(только свеча)"));
+  }
+  form.hidden = true;
+  const done = document.getElementById('candleDone');
+  done.hidden = false;
+  if(CONFIG.whatsapp){
+    const wa = document.getElementById('candleWhatsapp');
+    wa.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" +
+      encodeURIComponent("🕯 Свеча памяти\nИмя: " + name + "\nСлова: " + (text || "(только свеча)"));
+    wa.hidden = false;
+  }
+  btn.disabled = false;
+});
+fetch("candles.json").then(r => r.ok ? r.json() : null).then(data => {
+  if(!data || !data.candles || !data.candles.length) return;
+  const wall = document.getElementById('candleWall');
+  wall.innerHTML = "";
+  data.candles.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'candle-item';
+    el.innerHTML = '<div class="candle"><div class="flame"></div><div class="wick"></div><div class="wax"></div></div>' +
+      '<div class="c-name"></div>' + (c.text ? '<div class="c-text"></div>' : '') +
+      (c.date ? '<div class="c-date"></div>' : '');
+    el.querySelector('.c-name').textContent = c.name;
+    if(c.text) el.querySelector('.c-text').textContent = '«' + c.text + '»';
+    if(c.date) el.querySelector('.c-date').textContent = c.date;
+    wall.appendChild(el);
+  });
+}).catch(()=>{});
 
 document.querySelectorAll('#galleryGrid img').forEach(img => {
   img.addEventListener('click', () => {

@@ -12,6 +12,7 @@
     --text:#e8e6df; --muted:#a8a49a; --gold:#c9a86a; --gold-soft:#e6cfa3;
   }
   *{box-sizing:border-box; margin:0; padding:0}
+  [hidden]{display:none !important}
   html{scroll-behavior:smooth}
   body{
     background:var(--bg); color:var(--text);
@@ -35,10 +36,21 @@
   header.hero{text-align:center; padding:72px 20px 56px}
   .candle{width:44px; height:64px; margin:0 auto 28px; position:relative}
   .flame{
+    position:relative;
     width:14px; height:22px; margin:0 auto; border-radius:50% 50% 50% 50%/60% 60% 40% 40%;
     background:radial-gradient(ellipse at bottom,#ffd27a 0%,#e8963a 60%,rgba(232,150,58,0) 100%);
     animation:flicker 2.8s infinite ease-in-out; transform-origin:bottom center;
     box-shadow:0 0 24px 8px rgba(255,196,110,.25);
+  }
+  .flame::before{ /* горячее ядро пламени */
+    content:""; position:absolute; left:50%; bottom:2px; width:6px; height:11px;
+    transform:translateX(-50%); border-radius:50% 50% 50% 50%/62% 62% 38% 38%;
+    background:radial-gradient(ellipse at bottom, #fff8e0 0%, #ffdf9e 55%, rgba(255,223,158,0) 100%);
+  }
+  .flame::after{ /* голубое основание фитиля */
+    content:""; position:absolute; left:50%; bottom:-1px; width:8px; height:5px;
+    transform:translateX(-50%); border-radius:50%;
+    background:radial-gradient(ellipse at center, rgba(120,170,255,.55) 0%, rgba(120,170,255,0) 70%);
   }
   .wick{width:2px; height:5px; background:#555; margin:0 auto}
   .wax{width:22px; height:34px; margin:2px auto 0; border-radius:5px 5px 7px 7px;
@@ -138,13 +150,64 @@
   }
   .candle-empty{color:var(--muted); font-style:italic; font-size:14.5px; text-align:center}
   .candle-item{
-    background:var(--card); border:1px solid var(--line); border-radius:10px;
-    padding:14px 16px 12px; width:min(200px,44vw); text-align:center;
+    position:relative; overflow:hidden; text-align:center;
+    width:min(200px,44vw); padding:20px 16px 14px; border-radius:12px;
+    background:linear-gradient(180deg, #262a36 0%, #1b1e28 55%, #16181f 100%);
+    border:1px solid var(--line);
+    opacity:0; transform:translateY(18px) scale(.96);
+    transition:opacity .7s ease, transform .7s ease, border-color 1.2s ease, box-shadow 1.2s ease;
   }
-  .candle-item .candle{transform:scale(.6); margin:-8px auto 0; height:48px}
-  .candle-item .c-name{color:var(--gold-soft); font-size:14.5px; margin-top:2px}
-  .candle-item .c-text{color:var(--muted); font-size:13px; font-style:italic; margin-top:4px}
-  .candle-item .c-date{color:var(--muted); font-size:11.5px; margin-top:6px; opacity:.7}
+  .candle-item::before{ /* тёплый ореол от пламени */
+    content:""; position:absolute; left:50%; top:34px; width:150px; height:150px;
+    transform:translate(-50%,-50%); pointer-events:none;
+    background:radial-gradient(circle, rgba(255,190,100,.28) 0%, rgba(255,170,80,.10) 40%, transparent 70%);
+    opacity:0; transition:opacity 1.4s ease .35s;
+  }
+  .candle-item.lit{
+    opacity:1; transform:none;
+    border-color:rgba(201,168,106,.55);
+    box-shadow:0 0 22px rgba(212,160,70,.14), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .candle-item.lit::before{opacity:1}
+  .candle-item .candle{transform:scale(.62); margin:-10px auto 0; height:50px}
+  .candle-item .flame{opacity:0}
+  .candle-item.lit .flame{opacity:1; animation:ignite .8s ease-out .3s backwards, flicker 2.8s 1.1s infinite ease-in-out}
+  .candle-item .c-name{color:var(--gold-soft); font-size:14.5px; margin-top:4px; letter-spacing:.02em}
+  .candle-item .c-text{color:var(--muted); font-size:13px; font-style:italic; margin-top:5px}
+  .candle-item .c-date{color:var(--muted); font-size:11.5px; margin-top:7px; opacity:.65}
+  @keyframes ignite{
+    0%{transform:scale(.1) translateY(6px); opacity:0; filter:brightness(2.4)}
+    45%{transform:scale(1.35) rotate(-3deg); opacity:1; filter:brightness(1.8)}
+    100%{transform:scale(1); filter:brightness(1)}
+  }
+  /* золотая вспышка при зажжении своей свечи */
+  #candleDone .candle{position:relative}
+  #candleDone.burst .flame{animation:ignite 1s ease-out backwards, flicker 2.8s 1.2s infinite ease-in-out}
+  #candleDone.burst .candle::after{
+    content:""; position:absolute; left:50%; top:10px; width:12px; height:12px;
+    transform:translate(-50%,-50%); border-radius:50%; pointer-events:none;
+    box-shadow:0 0 0 0 rgba(255,205,120,.55);
+    animation:halo-burst 1.3s ease-out .15s backwards;
+  }
+  @keyframes halo-burst{
+    0%{box-shadow:0 0 0 0 rgba(255,205,120,.55)}
+    100%{box-shadow:0 0 90px 70px rgba(255,205,120,0)}
+  }
+  .ember{
+    position:absolute; left:50%; top:14px; width:3px; height:3px; border-radius:50%;
+    background:#ffcf8a; pointer-events:none; opacity:0;
+    animation:ember-rise 1.6s ease-out forwards;
+  }
+  @keyframes ember-rise{
+    0%{opacity:0; transform:translate(0,0) scale(1)}
+    15%{opacity:.95}
+    100%{opacity:0; transform:translate(var(--dx,0), -70px) scale(.3)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .candle-item{opacity:1; transform:none; transition:none}
+    .candle-item .flame, .candle-item.lit .flame, #candleDone.burst .flame{animation:none; opacity:1}
+    #candleDone.burst .candle::after, .ember{animation:none; display:none}
+  }
   .candle-form{margin-top:18px; text-align:left; display:flex; flex-direction:column; gap:14px}
   .candle-form label{display:flex; flex-direction:column; gap:6px; color:var(--muted); font-size:14px; font-style:italic}
   .candle-form input, .candle-form textarea{
@@ -580,6 +643,16 @@ document.getElementById('candleForm').addEventListener('submit', async (e) => {
   form.hidden = true;
   const done = document.getElementById('candleDone');
   done.hidden = false;
+  done.classList.add('burst');
+  const dc = done.querySelector('.candle');
+  for(let i = 0; i < 7; i++){
+    const em = document.createElement('span');
+    em.className = 'ember';
+    em.style.setProperty('--dx', (Math.sin(i * 2.7) * 42).toFixed(0) + 'px');
+    em.style.animationDelay = (0.15 + i * 0.12).toFixed(2) + 's';
+    dc.appendChild(em);
+  }
+  done.scrollIntoView({behavior:'smooth', block:'center'});
   if(CONFIG.whatsapp){
     const wa = document.getElementById('candleWhatsapp');
     wa.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" +
@@ -603,6 +676,17 @@ fetch("candles.json").then(r => r.ok ? r.json() : null).then(data => {
     if(c.date) el.querySelector('.c-date').textContent = c.date;
     wall.appendChild(el);
   });
+  /* свечи зажигаются по очереди, когда стена появляется на экране */
+  const items = [...wall.querySelectorAll('.candle-item')];
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if(!en.isIntersecting) return;
+      io.unobserve(en.target);
+      const idx = items.indexOf(en.target);
+      setTimeout(() => en.target.classList.add('lit'), 180 * (idx % 8));
+    });
+  }, {threshold: .3});
+  items.forEach(el => io.observe(el));
 }).catch(()=>{});
 
 document.querySelectorAll('#galleryGrid img').forEach(img => {

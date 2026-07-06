@@ -238,7 +238,16 @@
     align-items:center; justify-content:center; padding:20px; cursor:zoom-out;
   }
   .lightbox.open{display:flex}
-  .lightbox img{max-width:100%; max-height:100%; border-radius:6px}
+  .lightbox figure{display:flex; flex-direction:column; align-items:center; gap:10px; max-width:100%; max-height:100%}
+  .lightbox img{max-width:100%; max-height:86vh; border-radius:6px}
+  .lightbox figcaption{color:var(--muted); font-size:13.5px; font-style:italic}
+  .gallery-tabs{margin-bottom:18px}
+  .gtab{
+    font-family:inherit; font-size:14px; cursor:pointer;
+    border:1px solid var(--line); color:var(--muted); background:var(--bg-soft);
+    padding:7px 15px; border-radius:18px; transition:all .25s;
+  }
+  .gtab.active{border-color:var(--gold); color:var(--gold)}
 
   footer{padding:52px 20px 64px; text-align:center; color:var(--muted); font-size:14.5px; font-style:italic}
   footer .line{width:60px; height:1px; background:var(--gold); margin:0 auto 24px; opacity:.6}
@@ -438,17 +447,17 @@ Katzenbachstraße 58
   <h2 data-lang="de">Momente</h2>
   <p class="h2-sub" data-lang="ru">Таким мы его помним — живым, весёлым, настоящим</p>
   <p class="h2-sub" data-lang="de">So erinnern wir uns an ihn — lebendig, fröhlich, echt</p>
-  <div class="gallery-grid" id="galleryGrid">
-    <img src="photos/moment-1.jpg" alt="" loading="lazy">
-    <img src="photos/moment-2.jpg" alt="" loading="lazy">
-    <img src="photos/moment-3.jpg" alt="" loading="lazy">
-    <img src="photos/moment-4.jpg" alt="" loading="lazy">
-    <img src="photos/moment-5.jpg" alt="" loading="lazy">
+  <div class="chips gallery-tabs" id="galleryTabs">
+    <button class="gtab active" data-cat="all"><span data-lang="ru">Все</span><span data-lang="de">Alle</span></button>
+    <button class="gtab" data-cat="work"><span data-lang="ru">На кухне</span><span data-lang="de">In der Küche</span></button>
+    <button class="gtab" data-cat="free"><span data-lang="ru">В свободное время</span><span data-lang="de">In der Freizeit</span></button>
+    <button class="gtab" data-cat="just"><span data-lang="ru">Просто Ярик</span><span data-lang="de">Einfach Yarik</span></button>
   </div>
+  <div class="gallery-grid" id="galleryGrid"></div>
 </section>
 
 <div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
-  <img id="lightboxImg" src="" alt="">
+  <figure><img id="lightboxImg" src="" alt=""><figcaption id="lightboxBy"></figcaption></figure>
 </div>
 
 <!-- ЕГО СЛОВАМИ / IN SEINEN WORTEN -->
@@ -765,12 +774,56 @@ fetch("candles.json").then(r => r.ok ? r.json() : null).then(data => {
   items.forEach(el => io.observe(el));
 }).catch(()=>{});
 
-document.querySelectorAll('#galleryGrid img').forEach(img => {
-  img.addEventListener('click', () => {
-    document.getElementById('lightboxImg').src = img.src;
-    document.getElementById('lightbox').classList.add('open');
+/* Галерея с категориями и подписью, от кого фото */
+const GALLERY = [
+  {src:'photos/moment-1.jpg',  cat:'free', by:'Денис'},
+  {src:'photos/moment-2.jpg',  cat:'free', by:'Денис'},
+  {src:'photos/moment-3.jpg',  cat:'just', by:'Денис'},
+  {src:'photos/moment-4.jpg',  cat:'just', by:'Денис'},
+  {src:'photos/moment-5.jpg',  cat:'just', by:'Денис'},
+  {src:'photos/work/k00.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k01.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k02.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k03.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k04.jpg', cat:'free', by:'Игорь'},
+  {src:'photos/work/k05.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k06.jpg', cat:'just', by:'Игорь'},
+  {src:'photos/work/k07.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k08.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k09.jpg', cat:'free', by:'Игорь'},
+  {src:'photos/work/k10.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k11.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k12.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k13.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k14.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k15.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k16.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k17.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k18.jpg', cat:'work', by:'Игорь'},
+  {src:'photos/work/k19.jpg', cat:'free', by:'Игорь'},
+  {src:'photos/work/k20.jpg', cat:'free', by:'Игорь'},
+];
+function renderGallery(cat){
+  const grid = document.getElementById('galleryGrid');
+  grid.innerHTML = '';
+  GALLERY.filter(g => cat === 'all' || g.cat === cat).forEach(g => {
+    const img = document.createElement('img');
+    img.src = g.src; img.loading = 'lazy'; img.alt = '';
+    img.dataset.by = g.by;
+    img.addEventListener('click', () => {
+      document.getElementById('lightboxImg').src = g.src;
+      document.getElementById('lightboxBy').textContent =
+        (document.documentElement.className === 'de' ? 'Foto: ' : 'Фото: ') + g.by;
+      document.getElementById('lightbox').classList.add('open');
+    });
+    grid.appendChild(img);
   });
-});
+}
+renderGallery('all');
+document.querySelectorAll('.gtab').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.gtab').forEach(x => x.classList.toggle('active', x === b));
+  renderGallery(b.dataset.cat);
+}));
 
 const gb = document.getElementById('guestbookLink');
 if(CONFIG.guestbookForm){ gb.href = CONFIG.guestbookForm; }

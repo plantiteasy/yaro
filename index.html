@@ -23,11 +23,11 @@
 
   /* language toggle */
   .lang-bar{position:sticky; top:0; z-index:10; background:rgba(18,20,26,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
-  .lang-bar .wrap{display:flex; justify-content:flex-end; gap:8px; padding:10px 20px}
+  .lang-bar .wrap{display:flex; flex-wrap:wrap; justify-content:center; gap:6px; padding:8px 12px}
   .lang-btn{
-    font-family:inherit; font-size:14px; letter-spacing:.06em;
+    font-family:inherit; font-size:13px; letter-spacing:.06em;
     background:none; border:1px solid var(--line); color:var(--muted);
-    padding:6px 16px; border-radius:20px; cursor:pointer; transition:all .25s;
+    padding:5px 13px; border-radius:20px; cursor:pointer; transition:all .25s;
   }
   .lang-btn.active{border-color:var(--gold); color:var(--gold)}
   .lang-btn:hover{color:var(--gold-soft)}
@@ -145,7 +145,7 @@
     border-radius:0 10px 10px 0; font-size:17.5px; font-style:italic; color:var(--gold-soft);
   }
   .quote-list .q-de{display:block; margin-top:8px; font-size:14px; color:var(--muted); font-style:normal}
-  html.ru .quote-list .q-de{display:none}
+  html.ru .quote-list .q-de, html.ua .quote-list .q-de{display:none}
   .words{margin-top:30px; text-align:center}
   .words-intro{color:var(--muted); font-style:italic; font-size:15px; margin-bottom:14px}
   .chips{display:flex; flex-wrap:wrap; gap:8px; justify-content:center}
@@ -255,6 +255,7 @@
   [data-lang]{display:none}
   html.ru [data-lang="ru"]{display:revert}
   html.de [data-lang="de"]{display:revert}
+  html.ua [data-lang="ua"]{display:revert}
 </style>
 </head>
 <body>
@@ -263,20 +264,24 @@
   <div class="wrap">
     <button class="lang-btn" id="btn-ru" onclick="setLang('ru')">Русский</button>
     <button class="lang-btn" id="btn-de" onclick="setLang('de')">Deutsch</button>
+    <button class="lang-btn" id="btn-ua" onclick="setLang('ua')">Українська</button>
+    <button class="lang-btn" id="btn-listen" onclick="toggleSpeech()" title="Прослушать страницу">🔊 <span data-lang="ru">Слушать</span><span data-lang="de">Vorlesen</span><span data-lang="ua">Слухати</span></button>
   </div>
 </nav>
 
 <header class="hero">
   <div class="candle" data-size="big"><div class="glow"></div><canvas class="flamec"></canvas><div class="wax"><div class="wick"></div></div></div>
   <p class="pre" data-lang="ru">Светлой памяти</p>
+  <p class="pre" data-lang="ua">Світлої пам'яті</p>
   <p class="pre" data-lang="de">In liebevoller Erinnerung an</p>
   <h1 id="name">Ярослав</h1>
   <p class="dates" id="dates"><!-- напр.: 1990 – 2026 --></p>
   <div class="photo-frame" id="photoFrame">
-    <span data-lang="ru">Здесь будет фотография Ярослава</span>
+    <span data-lang="ru">Здесь будет фотография Ярослава</span><span data-lang="ua">Тут буде фотографія Ярослава</span>
     <span data-lang="de">Hier kommt ein Foto von Yaroslav</span>
   </div>
   <p class="epigraph" data-lang="ru">Говорят, человек жив, пока о нём помнят.<br>Эта страница — чтобы помнить.</p>
+  <p class="epigraph" data-lang="ua">Кажуть, людина жива, поки про неї пам'ятають.<br>Ця сторінка — щоб пам'ятати.</p>
   <p class="epigraph" data-lang="de">Man sagt, ein Mensch lebt weiter, solange man sich an ihn erinnert.<br>Diese Seite ist dafür da — um sich zu erinnern.</p>
 </header>
 
@@ -284,158 +289,170 @@
 
 <!-- ЕГО ПУТЬ / SEIN WEG -->
 <section id="bio">
-  <h2 data-lang="ru">Его путь</h2>
+  <h2 data-lang="ru">Его путь</h2><h2 data-lang="ua">Його шлях</h2>
   <h2 data-lang="de">Sein Weg</h2>
-  <p class="h2-sub" data-lang="ru">Не справка — портрет</p>
+  <p class="h2-sub" data-lang="ru">Не справка — портрет</p><p class="h2-sub" data-lang="ua">Не довідка — портрет</p>
   <p class="h2-sub" data-lang="de">Keine Chronik — ein Porträt</p>
 
   <div class="infobox">
-    <div class="ib-row"><span data-lang="ru">Имя</span><span data-lang="de">Name</span><strong>Yaroslav Polskyy · Ярик</strong></div>
-    <div class="ib-row"><span data-lang="ru">Родился</span><span data-lang="de">Geboren</span><strong>14 января 1990</strong></div>
-    <div class="ib-row"><span data-lang="ru">Призвание</span><span data-lang="de">Berufung</span><strong data-lang="ru">Шеф-повар</strong><strong data-lang="de">Koch mit Leib und Seele</strong></div>
-    <div class="ib-row"><span data-lang="ru">Фирменное приветствие</span><span data-lang="de">Seine Begrüßung</span><strong>«Салют бро»</strong></div>
-    <div class="ib-row"><span data-lang="ru">Его «понял»</span><span data-lang="de">Sein „verstanden"</span><strong>«Чэк»</strong></div>
-    <div class="ib-row"><span data-lang="ru">Прощался словами</span><span data-lang="de">Sein Abschiedsgruß</span><strong>«Обнял. На связи»</strong></div>
-    <div class="ib-row"><span data-lang="ru">Мечтал</span><span data-lang="de">Sein Traum</span><strong data-lang="ru">Black Pearl и дом у моря в Испании</strong><strong data-lang="de">Black Pearl und ein Haus am Meer in Spanien</strong></div>
-    <div class="ib-row"><span data-lang="ru">Верил</span><span data-lang="de">Er glaubte</span><strong data-lang="ru">«Ниже пола не упаду»</strong><strong data-lang="de">„Tiefer als der Boden falle ich nicht"</strong></div>
+    <div class="ib-row"><span data-lang="ru">Имя</span><span data-lang="ua">Ім'я</span><span data-lang="de">Name</span><strong>Yaroslav Polskyy · Ярик</strong></div>
+    <div class="ib-row"><span data-lang="ru">Родился</span><span data-lang="ua">Народився</span><span data-lang="de">Geboren</span><strong>14 января 1990</strong></div>
+    <div class="ib-row"><span data-lang="ru">Призвание</span><span data-lang="ua">Покликання</span><span data-lang="de">Berufung</span><strong data-lang="ru">Шеф-повар</strong><strong data-lang="de">Koch mit Leib und Seele</strong><strong data-lang="ua">Шеф-кухар</strong></div>
+    <div class="ib-row"><span data-lang="ru">Фирменное приветствие</span><span data-lang="ua">Фірмове вітання</span><span data-lang="de">Seine Begrüßung</span><strong>«Салют бро»</strong></div>
+    <div class="ib-row"><span data-lang="ru">Его «понял»</span><span data-lang="ua">Його «зрозумів»</span><span data-lang="de">Sein „verstanden"</span><strong>«Чэк»</strong></div>
+    <div class="ib-row"><span data-lang="ru">Прощался словами</span><span data-lang="ua">Прощався словами</span><span data-lang="de">Sein Abschiedsgruß</span><strong>«Обнял. На связи»</strong></div>
+    <div class="ib-row"><span data-lang="ru">Мечтал</span><span data-lang="ua">Мріяв</span><span data-lang="de">Sein Traum</span><strong data-lang="ru">Black Pearl и дом у моря в Испании</strong><strong data-lang="de">Black Pearl und ein Haus am Meer in Spanien</strong><strong data-lang="ua">Black Pearl і дім біля моря в Іспанії</strong></div>
+    <div class="ib-row"><span data-lang="ru">Верил</span><span data-lang="ua">Вірив</span><span data-lang="de">Er glaubte</span><strong data-lang="ru">«Ниже пола не упаду»</strong><strong data-lang="de">„Tiefer als der Boden falle ich nicht"</strong><strong data-lang="ua">«Нижче підлоги не впаду»</strong></div>
   </div>
 
   <div class="bio-ch">
-    <h3 data-lang="ru">Повар</h3><h3 data-lang="de">Der Koch</h3>
+    <h3 data-lang="ru">Повар</h3><h3 data-lang="ua">Кухар</h3><h3 data-lang="de">Der Koch</h3>
     <p data-lang="ru">Ярослав был поваром не по диплому, а по природе. Он проходил сезоны, в которые люди ломаются: смены по четырнадцать-шестнадцать часов, ночные поезда, ножи, наточенные перед каждым сервисом. Он кормил сотни и тысячи людей — от VIP-кейтеринга в музее Mercedes-Benz до Hugo Boss Open — и собирал вокруг себя команды поваров-фрилансеров, которых с гордостью называл «мои солдатики». Он закрывал заказы своим фирменным «Auftrag zu!!!», выбивал ребятам достойные ставки, платил им из своего кармана, когда заказчики тянули с деньгами, и возвращал в профессию поваров, которых жизнь из неё выбила. Он мог один вытащить мероприятие, с которого все ушли, — и рассказать об этом так, что все смеялись.</p>
+    <p data-lang="ua">Ярослав був кухарем не за дипломом, а за природою. Він проходив сезони, на яких люди ламаються: зміни по чотирнадцять-шістнадцять годин, нічні потяги, ножі, нагострені перед кожним сервісом. Він годував сотні й тисячі людей — від VIP-кейтерингу в музеї Mercedes-Benz до Hugo Boss Open — і збирав навколо себе команди кухарів-фрілансерів, яких з гордістю називав «мої солдатики». Він закривав замовлення своїм фірмовим «Auftrag zu!!!», вибивав хлопцям гідні ставки, платив їм із власної кишені, коли замовники тягнули з грошима, і повертав у професію кухарів, яких життя з неї вибило. Він міг сам витягнути захід, з якого всі пішли, — і розповісти про це так, що всі сміялися.</p>
     <p data-lang="de">Yaroslav war Koch nicht auf dem Papier, sondern von Natur aus. Er stand Saisons durch, an denen andere zerbrechen: Schichten von vierzehn, sechzehn Stunden, Nachtzüge, Messer, vor jedem Service frisch geschärft. Er bekochte Hunderte und Tausende — vom VIP-Catering im Mercedes-Benz Museum bis zu den Hugo Boss Open — und versammelte Teams von Freelancer-Köchen um sich, die er stolz „meine Soldaten" nannte. Aufträge schloss er mit seinem legendären „Auftrag zu!!!", er erkämpfte seinen Jungs faire Stundensätze, zahlte sie aus eigener Tasche, wenn Auftraggeber das Geld schuldig blieben, und holte Köche zurück in den Beruf, die das Leben herausgeworfen hatte. Er konnte ein Event allein retten, von dem alle davongelaufen waren — und hinterher so davon erzählen, dass alle lachten.</p>
   </div>
 
   <div class="bio-ch">
-    <h3 data-lang="ru">Друг</h3><h3 data-lang="de">Der Freund</h3>
+    <h3 data-lang="ru">Друг</h3><h3 data-lang="ua">Друг</h3><h3 data-lang="de">Der Freund</h3>
     <p data-lang="ru">Дружить он умел так, как мало кто умеет. «Я брошу всё, чем занимаюсь, и поговорю с тобой» — это не фраза, он правда бросал. Он приезжал ночью, отдавал последнее, оставлял лазанью в холодильнике друга и ключи «там, где всегда». Он вёл честный счёт до копейки и радовался как ребёнок, когда выходило «по нулям», — а сверху всё равно докидывал подарок. Когда у его людей случалась беда, он говорил: «Ты не одна. Есть я, есть Игорь». И это всегда была правда.</p>
+    <p data-lang="ua">Дружити він умів так, як мало хто вміє. «Я покину все, чим займаюся, і поговорю з тобою» — це не фраза, він справді кидав усе. Він приїжджав уночі, віддавав останнє, залишав лазанью в холодильнику друга і ключі «там, де завжди». Він вів чесний рахунок до копійки і радів як дитина, коли виходило «по нулях», — а зверху все одно докидав подарунок. Коли в його людей траплялася біда, він казав: «Ти не одна. Є я, є Ігор». І це завжди була правда.</p>
     <p data-lang="de">Freundschaft konnte er wie kaum ein anderer. „Ich lasse alles stehen und liegen und rede mit dir" — das war kein Spruch, er ließ wirklich alles stehen. Er kam mitten in der Nacht, gab sein Letztes, hinterließ Lasagne im Kühlschrank des Freundes und den Schlüssel „dort, wo immer". Er führte ehrlich Buch bis auf den Cent und freute sich wie ein Kind, wenn es „auf null" aufging — und legte trotzdem noch ein Geschenk obendrauf. Wenn seinen Menschen etwas zustieß, sagte er: „Du bist nicht allein." Und das stimmte immer.</p>
   </div>
 
   <div class="bio-ch">
-    <h3 data-lang="ru">Мечтатель</h3><h3 data-lang="de">Der Träumer</h3>
+    <h3 data-lang="ru">Мечтатель</h3><h3 data-lang="ua">Мрійник</h3><h3 data-lang="de">Der Träumer</h3>
     <p data-lang="ru">Из любого объявления у него рождался проект: ферма с гусями к Рождеству, фестиваль в лесу, фудтрак со свежей рыбой на берегу моря. Две мечты были самыми упрямыми: Испания — «Давай менять жизнь, а не себя гробить! Погнали — ты и я» — и Black Pearl, платформа, которая наведёт порядок в мире гастро-фриланса и защитит таких ребят, как его повара. Чёрный цвет, золото, одна чёрная жемчужина — он продумал всё и до последних недель сам писал код. Его девиз на этот счёт был короткий: «Сейчас или некогда».</p>
+    <p data-lang="ua">З будь-якого оголошення в нього народжувався проєкт: ферма з гусьми до Різдва, фестиваль у лісі, фудтрак зі свіжою рибою на березі моря. Дві мрії були найупертішими: Іспанія — «Давай міняти життя, а не себе гробити! Погнали — ти і я» — і Black Pearl, платформа, яка наведе лад у світі гастро-фрілансу та захистить таких хлопців, як його кухарі. Чорний колір, золото, одна чорна перлина — він продумав усе і до останніх тижнів сам писав код. Його девіз був короткий: «Зараз або ніколи».</p>
     <p data-lang="de">Aus jeder Kleinanzeige wurde bei ihm ein Projekt: ein Hof mit Gänsen zu Weihnachten, ein Festival im Wald, ein Foodtruck mit frischem Fisch am Meer. Zwei Träume waren die hartnäckigsten: Spanien — „Lass uns das Leben ändern, statt uns kaputtzumachen! Los — du und ich" — und Black Pearl, die Plattform, die Ordnung in die Welt der Gastro-Freelancer bringen und Jungs wie seine Köche schützen sollte. Schwarz, Gold, eine einzige schwarze Perle — er hatte alles durchdacht und schrieb bis zuletzt selbst am Code. Sein Motto dazu war kurz: „Jetzt oder nie."</p>
   </div>
 
   <div class="bio-ch">
-    <h3 data-lang="ru">Человек</h3><h3 data-lang="de">Der Mensch</h3>
+    <h3 data-lang="ru">Человек</h3><h3 data-lang="ua">Людина</h3><h3 data-lang="de">Der Mensch</h3>
     <p data-lang="ru">Он писал «пожайлусто» и «модно» вместо «можно», смеялся всегда тройным «😂😂😂», забыл однажды собственный день рождения и сообщил о нём на следующий день. Он мог упасть — в жизни это случалось не раз — и у него была на это своя философия: «Чем громче падаешь, тем быстрее встанешь». Он безмерно любил своих: семью, друзей, своих поваров, свою кошку. Он умел просить прощения первым. И каждому, кто был ему дорог, он успел сказать об этом прямо — словами, которые теперь читаются как завещание: «Ты для меня семья».</p>
+    <p data-lang="ua">Він писав «пожайлусто» і «модно» замість «можно», сміявся завжди потрійним «😂😂😂», якось забув власний день народження і повідомив про нього наступного дня. Він міг упасти — в житті таке траплялося не раз — і мав на це власну філософію: «Чим гучніше падаєш, тим швидше встанеш». Він безмежно любив своїх: родину, друзів, своїх кухарів, свою кішку. Він умів першим просити пробачення. І кожному, хто був йому дорогий, він встиг сказати про це прямо — словами, які тепер читаються як заповіт: «Ти для мене сім'я».</p>
     <p data-lang="de">Er schrieb Wörter auf seine eigene Art, lachte immer mit dreifachem „😂😂😂" und vergaß einmal seinen eigenen Geburtstag — er erwähnte ihn beiläufig am Tag danach. Er konnte fallen — das Leben hat es ihm nicht geschenkt — und hatte seine eigene Philosophie dafür: „Je lauter du fällst, desto schneller stehst du wieder auf." Er liebte die Seinen grenzenlos: seine Familie, seine Freunde, seine Köche, seine Katze. Er konnte als Erster um Verzeihung bitten. Und jedem, der ihm wichtig war, hat er es noch direkt gesagt — mit Worten, die sich heute wie ein Vermächtnis lesen: „Du bist für mich Familie."</p>
   </div>
 </section>
 
 <!-- ПРОЩАНИЕ / TRAUERFEIER -->
 <section id="abschied">
-  <h2 data-lang="ru">Прощание</h2>
+  <h2 data-lang="ru">Прощание</h2><h2 data-lang="ua">Прощання</h2>
   <h2 data-lang="de">Abschied</h2>
-  <p class="h2-sub" data-lang="ru">Церемония открыта для всех, кто знал и ценил Ярослава</p>
+  <p class="h2-sub" data-lang="ru">Церемония открыта для всех, кто знал и ценил Ярослава</p><p class="h2-sub" data-lang="ua">Церемонія відкрита для всіх, хто знав і цінував Ярослава</p>
   <p class="h2-sub" data-lang="de">Die Trauerfeier ist offen für alle, die Yaroslav kannten und schätzten</p>
 
   <div class="card">
-    <h3 data-lang="ru">Церемония прощания</h3>
+    <h3 data-lang="ru">Церемония прощания</h3><h3 data-lang="ua">Церемонія прощання</h3>
     <h3 data-lang="de">Trauerfeier</h3>
     <p class="when">10.07.2026 · 10:00</p>
     <p class="where">Ramsaier Bestattungen GmbH
 Katzenbachstraße 58
 70563 Stuttgart-Vaihingen</p>
     <a class="btn" target="_blank" rel="noopener" href="https://maps.google.com/?q=Ramsaier+Bestattungen+GmbH,+Katzenbachstra%C3%9Fe+58,+70563+Stuttgart">
-      <span data-lang="ru">Открыть на карте</span><span data-lang="de">Auf der Karte öffnen</span>
+      <span data-lang="ru">Открыть на карте</span><span data-lang="de">Auf der Karte öffnen</span><span data-lang="ua">Відкрити на мапі</span>
     </a>
   </div>
 
   <div class="card">
-    <h3 data-lang="ru">Поминальный обед</h3>
+    <h3 data-lang="ru">Поминальный обед</h3><h3 data-lang="ua">Поминальний обід</h3>
     <h3 data-lang="de">Leichenschmaus</h3>
     <p class="when">10.07.2026 · 13:00</p>
     <p class="where">Julius-Hölder-Straße 43
 70597 Stuttgart-Degerloch</p>
     <a class="btn" target="_blank" rel="noopener" href="https://maps.google.com/?q=Julius-H%C3%B6lder-Stra%C3%9Fe+43,+70597+Stuttgart">
-      <span data-lang="ru">Открыть на карте</span><span data-lang="de">Auf der Karte öffnen</span>
+      <span data-lang="ru">Открыть на карте</span><span data-lang="de">Auf der Karte öffnen</span><span data-lang="ua">Відкрити на мапі</span>
     </a>
   </div>
 
   <p data-lang="ru" class="muted">В этот день мы хотим вместе почтить его память, вспомнить светлые моменты и проводить его в последний путь. Каждый, кто знал его, ценил или хочет проститься, — искренне желанный гость.</p>
+  <p data-lang="ua" class="muted">Цього дня ми хочемо разом вшанувати його пам'ять, згадати світлі моменти й провести його в останню путь. Кожен, хто його знав, цінував або хоче попрощатися, — щиро бажаний гість.</p>
   <p data-lang="de" class="muted">An diesem Tag möchten wir gemeinsam innehalten, uns erinnern und ihm die letzte Ehre erweisen. Jeder, der ihn kannte, schätzte oder sich verabschieden möchte, ist von Herzen willkommen.</p>
 </section>
 
 <!-- УЧАСТИЕ / RSVP -->
 <section id="rsvp">
-  <h2 data-lang="ru">Сообщить о присутствии</h2>
+  <h2 data-lang="ru">Сообщить о присутствии</h2><h2 data-lang="ua">Повідомити про присутність</h2>
   <h2 data-lang="de">Teilnahme mitteilen</h2>
-  <p class="h2-sub" data-lang="ru">Чтобы семья могла всё подготовить, пожалуйста, дайте знать, придёте ли вы</p>
+  <p class="h2-sub" data-lang="ru">Чтобы семья могла всё подготовить, пожалуйста, дайте знать, придёте ли вы</p><p class="h2-sub" data-lang="ua">Щоб родина могла все підготувати, будь ласка, дайте знати, чи прийдете ви</p>
   <p class="h2-sub" data-lang="de">Damit die Familie planen kann, gib bitte kurz Bescheid, ob du kommst</p>
 
   <div class="card" style="text-align:center">
     <p data-lang="ru">Напишите, планируете ли вы быть на церемонии прощания и / или на поминальном обеде, и сколько вас будет.</p>
+    <p data-lang="ua">Напишіть, чи плануєте бути на церемонії прощання і / або на поминальному обіді, і скільки вас буде.</p>
     <p data-lang="de">Schreib uns, ob du zur Trauerfeier und / oder zum Leichenschmaus kommst und mit wie vielen Personen.</p>
     <a class="btn solid" id="rsvpWhatsapp" target="_blank" rel="noopener" href="#">
-      <span data-lang="ru">Ответить в WhatsApp</span><span data-lang="de">Per WhatsApp antworten</span>
+      <span data-lang="ru">Ответить в WhatsApp</span><span data-lang="de">Per WhatsApp antworten</span><span data-lang="ua">Відповісти у WhatsApp</span>
     </a>
     <p class="note" data-lang="ru">Или просто ответьте тому, от кого вы получили ссылку на эту страницу.</p>
+    <p class="note" data-lang="ua">Або просто дайте відповідь тому, від кого ви отримали посилання на цю сторінку.</p>
     <p class="note" data-lang="de">Oder antworte einfach der Person, von der du den Link zu dieser Seite bekommen hast.</p>
   </div>
 </section>
 
 <!-- ПОДДЕРЖКА / UNTERSTÜTZUNG -->
 <section id="support">
-  <h2 data-lang="ru">Поддержать семью</h2>
+  <h2 data-lang="ru">Поддержать семью</h2><h2 data-lang="ua">Підтримати родину</h2>
   <h2 data-lang="de">Die Familie unterstützen</h2>
-  <p class="h2-sub" data-lang="ru">По желанию — любая помощь принимается с благодарностью</p>
+  <p class="h2-sub" data-lang="ru">По желанию — любая помощь принимается с благодарностью</p><p class="h2-sub" data-lang="ua">За бажанням — будь-яка допомога приймається з вдячністю</p>
   <p class="h2-sub" data-lang="de">Freiwillig — jede Hilfe wird dankbar angenommen</p>
 
   <div class="card" style="text-align:center">
     <p data-lang="ru">Николь, родная сестра Ярослава, организовала сбор средств на организацию прощания и похорон. Если вы хотите поддержать семью, это можно сделать через PayPal.</p>
+    <p data-lang="ua">Ніколь, рідна сестра Ярослава, організувала збір коштів на організацію прощання та похорону. Якщо ви хочете підтримати родину, це можна зробити через PayPal.</p>
     <p data-lang="de">Nicole, Yaroslavs Schwester, hat eine Spendensammlung für die Trauerfeier und Beerdigung organisiert. Wer die Familie unterstützen möchte, kann das über PayPal tun.</p>
     <a class="btn solid" id="paypalLink" target="_blank" rel="noopener" href="#">
-      <span data-lang="ru">Перейти к сбору (PayPal)</span><span data-lang="de">Zur Spendensammlung (PayPal)</span>
+      <span data-lang="ru">Перейти к сбору (PayPal)</span><span data-lang="de">Zur Spendensammlung (PayPal)</span><span data-lang="ua">Перейти до збору (PayPal)</span>
     </a>
     <p class="note" data-lang="ru">Сумма — любая. Важен не размер, а участие.</p>
+    <p class="note" data-lang="ua">Сума — будь-яка. Важливий не розмір, а участь.</p>
     <p class="note" data-lang="de">Jeder Betrag zählt. Es geht nicht um die Höhe, sondern um die Geste.</p>
   </div>
 </section>
 
 <!-- СВЕЧИ ПАМЯТИ / GEDENKKERZEN -->
 <section id="candles">
-  <h2 data-lang="ru">Свечи памяти</h2>
+  <h2 data-lang="ru">Свечи памяти</h2><h2 data-lang="ua">Свічки пам'яті</h2>
   <h2 data-lang="de">Gedenkkerzen</h2>
-  <p class="h2-sub" data-lang="ru">Зажгите свечу за упокой — с несколькими словами или молча</p>
+  <p class="h2-sub" data-lang="ru">Зажгите свечу за упокой — с несколькими словами или молча</p><p class="h2-sub" data-lang="ua">Запаліть свічку за упокій — з кількома словами або мовчки</p>
   <p class="h2-sub" data-lang="de">Zünde eine Gedenkkerze an — mit ein paar Worten oder still</p>
 
   <div class="candle-wall" id="candleWall">
     <p class="candle-empty" data-lang="ru">Здесь будут гореть свечи, зажжённые в память о нём.</p>
+    <p class="candle-empty" data-lang="ua">Тут горітимуть свічки, запалені в пам'ять про нього.</p>
     <p class="candle-empty" data-lang="de">Hier werden die Kerzen brennen, die zu seinem Gedenken entzündet wurden.</p>
   </div>
 
   <div class="card" style="text-align:center">
     <button class="btn solid" id="candleToggle" type="button">
-      <span data-lang="ru">🕯 Зажечь свечу</span><span data-lang="de">🕯 Kerze anzünden</span>
+      <span data-lang="ru">🕯 Зажечь свечу</span><span data-lang="de">🕯 Kerze anzünden</span><span data-lang="ua">🕯 Запалити свічку</span>
     </button>
 
     <form id="candleForm" class="candle-form" hidden>
       <label>
-        <span data-lang="ru">Ваше имя (как подписать свечу)</span>
+        <span data-lang="ru">Ваше имя (как подписать свечу)</span><span data-lang="ua">Ваше ім'я (як підписати свічку)</span>
         <span data-lang="de">Dein Name (so wird die Kerze beschriftet)</span>
         <input type="text" name="name" required maxlength="80" autocomplete="name">
       </label>
       <label>
-        <span data-lang="ru">Слова памяти (по желанию)</span>
+        <span data-lang="ru">Слова памяти (по желанию)</span><span data-lang="ua">Слова пам'яті (за бажанням)</span>
         <span data-lang="de">Ein paar Worte (freiwillig)</span>
         <textarea name="text" rows="3" maxlength="600"></textarea>
       </label>
       <button class="btn solid" type="submit">
-        <span data-lang="ru">Зажечь</span><span data-lang="de">Anzünden</span>
+        <span data-lang="ru">Зажечь</span><span data-lang="de">Anzünden</span><span data-lang="ua">Запалити</span>
       </button>
       <p class="note" data-lang="ru">Свеча сначала попадает к семье и появляется на стене после подтверждения.</p>
+      <p class="note" data-lang="ua">Свічка спочатку потрапляє до родини і з'являється на стіні після підтвердження.</p>
       <p class="note" data-lang="de">Die Kerze geht zuerst an die Familie und erscheint nach Bestätigung auf der Wand.</p>
     </form>
 
     <div id="candleDone" hidden>
       <div class="candle" style="margin-top:10px"><div class="glow"></div><canvas class="flamec"></canvas><div class="wax"><div class="wick"></div></div></div>
       <p data-lang="ru">Спасибо. Ваша свеча передана семье — она загорится на этой стене после подтверждения.</p>
+      <p data-lang="ua">Дякуємо. Вашу свічку передано родині — вона загориться на цій стіні після підтвердження.</p>
       <p data-lang="de">Danke. Deine Kerze wurde an die Familie übermittelt — sie wird nach Bestätigung hier brennen.</p>
       <a class="btn" id="candleWhatsapp" target="_blank" rel="noopener" href="#" hidden>
-        <span data-lang="ru">Продублировать в WhatsApp</span><span data-lang="de">Zusätzlich per WhatsApp senden</span>
+        <span data-lang="ru">Продублировать в WhatsApp</span><span data-lang="de">Zusätzlich per WhatsApp senden</span><span data-lang="ua">Продублювати у WhatsApp</span>
       </a>
     </div>
   </div>
@@ -443,15 +460,15 @@ Katzenbachstraße 58
 
 <!-- МОМЕНТЫ / MOMENTE -->
 <section id="gallery">
-  <h2 data-lang="ru">Моменты</h2>
+  <h2 data-lang="ru">Моменты</h2><h2 data-lang="ua">Моменти</h2>
   <h2 data-lang="de">Momente</h2>
-  <p class="h2-sub" data-lang="ru">Таким мы его помним — живым, весёлым, настоящим</p>
+  <p class="h2-sub" data-lang="ru">Таким мы его помним — живым, весёлым, настоящим</p><p class="h2-sub" data-lang="ua">Таким ми його пам'ятаємо — живим, веселим, справжнім</p>
   <p class="h2-sub" data-lang="de">So erinnern wir uns an ihn — lebendig, fröhlich, echt</p>
   <div class="chips gallery-tabs" id="galleryTabs">
-    <button class="gtab active" data-cat="all"><span data-lang="ru">Все</span><span data-lang="de">Alle</span></button>
-    <button class="gtab" data-cat="work"><span data-lang="ru">На кухне</span><span data-lang="de">In der Küche</span></button>
-    <button class="gtab" data-cat="free"><span data-lang="ru">В свободное время</span><span data-lang="de">In der Freizeit</span></button>
-    <button class="gtab" data-cat="just"><span data-lang="ru">Просто Ярик</span><span data-lang="de">Einfach Yarik</span></button>
+    <button class="gtab active" data-cat="all"><span data-lang="ru">Все</span><span data-lang="de">Alle</span><span data-lang="ua">Усі</span></button>
+    <button class="gtab" data-cat="work"><span data-lang="ru">На кухне</span><span data-lang="de">In der Küche</span><span data-lang="ua">На кухні</span></button>
+    <button class="gtab" data-cat="free"><span data-lang="ru">В свободное время</span><span data-lang="de">In der Freizeit</span><span data-lang="ua">У вільний час</span></button>
+    <button class="gtab" data-cat="just"><span data-lang="ru">Просто Ярик</span><span data-lang="de">Einfach Yarik</span><span data-lang="ua">Просто Ярік</span></button>
   </div>
   <div class="gallery-grid" id="galleryGrid"></div>
 </section>
@@ -462,9 +479,9 @@ Katzenbachstraße 58
 
 <!-- ЕГО СЛОВАМИ / IN SEINEN WORTEN -->
 <section id="quotes">
-  <h2 data-lang="ru">Его словами</h2>
+  <h2 data-lang="ru">Его словами</h2><h2 data-lang="ua">Його словами</h2>
   <h2 data-lang="de">In seinen Worten</h2>
-  <p class="h2-sub" data-lang="ru">Из его сообщений — таким он был в каждом дне</p>
+  <p class="h2-sub" data-lang="ru">Из его сообщений — таким он был в каждом дне</p><p class="h2-sub" data-lang="ua">З його повідомлень — мовою оригіналу</p>
   <p class="h2-sub" data-lang="de">Aus seinen Nachrichten — so war er, jeden Tag (Originale auf Russisch)</p>
 
   <div class="quote-list">
@@ -510,6 +527,7 @@ Katzenbachstraße 58
 
   <div class="words">
     <p class="words-intro" data-lang="ru">И его словечки, которые невозможно забыть:</p>
+    <p class="words-intro" data-lang="ua">І його слівця, які неможливо забути:</p>
     <p class="words-intro" data-lang="de">Und seine Wörter, die man nie vergisst:</p>
     <div class="chips">
       <span>Салют бро</span><span>Чэк</span><span>Шо ты там</span><span>Обнял. На связи</span>
@@ -522,46 +540,52 @@ Katzenbachstraße 58
 
 <!-- ВОСПОМИНАНИЯ / ERINNERUNGEN -->
 <section id="memories">
-  <h2 data-lang="ru">Воспоминания</h2>
+  <h2 data-lang="ru">Воспоминания</h2><h2 data-lang="ua">Спогади</h2>
   <h2 data-lang="de">Erinnerungen</h2>
-  <p class="h2-sub" data-lang="ru">Фотографии, видео и истории — всё, что помогает помнить</p>
+  <p class="h2-sub" data-lang="ru">Фотографии, видео и истории — всё, что помогает помнить</p><p class="h2-sub" data-lang="ua">Фотографії, відео та історії — все, що допомагає пам'ятати</p>
   <p class="h2-sub" data-lang="de">Fotos, Videos und Geschichten — alles, was die Erinnerung lebendig hält</p>
 
   <div class="card">
-    <h3 data-lang="ru">Поделитесь фото и видео</h3>
+    <h3 data-lang="ru">Поделитесь фото и видео</h3><h3 data-lang="ua">Поділіться фото та відео</h3>
     <h3 data-lang="de">Teile Fotos und Videos</h3>
     <p data-lang="ru">Если у вас есть фотографии или видео с Ярославом, загрузите их в общий альбом — семья соберёт их в одном месте.</p>
+    <p data-lang="ua">Якщо у вас є фотографії або відео з Ярославом, завантажте їх у спільний альбом — родина збере їх в одному місці.</p>
     <p data-lang="de">Wenn du Fotos oder Videos mit Yaroslav hast, lade sie in das gemeinsame Album hoch — die Familie sammelt alles an einem Ort.</p>
     <a class="btn" id="albumLink" target="_blank" rel="noopener" href="#">
-      <span data-lang="ru">Открыть общий альбом</span><span data-lang="de">Gemeinsames Album öffnen</span>
+      <span data-lang="ru">Открыть общий альбом</span><span data-lang="de">Gemeinsames Album öffnen</span><span data-lang="ua">Відкрити спільний альбом</span>
     </a>
   </div>
 
   <div class="card">
-    <h3 data-lang="ru">Оставьте слова памяти</h3>
+    <h3 data-lang="ru">Оставьте слова памяти</h3><h3 data-lang="ua">Залиште слова пам'яті</h3>
     <h3 data-lang="de">Hinterlasse ein paar Worte</h3>
     <p data-lang="ru">Напишите пару слов, историю или воспоминание — семья прочитает каждое сообщение и сохранит его в книге памяти.</p>
+    <p data-lang="ua">Напишіть кілька слів, історію чи спогад — родина прочитає кожне повідомлення і збереже його в книзі пам'яті.</p>
     <p data-lang="de">Schreib ein paar Worte, eine Geschichte oder eine Erinnerung — die Familie liest jede Nachricht und bewahrt sie im Gedenkbuch auf.</p>
     <a class="btn" id="guestbookLink" target="_blank" rel="noopener" href="#">
-      <span data-lang="ru">Написать воспоминание</span><span data-lang="de">Erinnerung schreiben</span>
+      <span data-lang="ru">Написать воспоминание</span><span data-lang="de">Erinnerung schreiben</span><span data-lang="ua">Написати спогад</span>
     </a>
   </div>
 </section>
 
 <!-- ЕГО ДЕЛО / SEIN PROJEKT -->
 <section id="project">
-  <h2 data-lang="ru">Его дело продолжается</h2>
+  <h2 data-lang="ru">Его дело продолжается</h2><h2 data-lang="ua">Його справа триває</h2>
   <h2 data-lang="de">Sein Projekt lebt weiter</h2>
 
   <div class="card">
     <div class="pearl" aria-hidden="true"></div>
     <p data-lang="ru">Ярослав был поваром по призванию. Он собирал вокруг себя команды поваров-фрилансеров — своих «солдатиков» — и вытягивал события на сотни и тысячи гостей: VIP-кейтеринг в музее Mercedes-Benz, Hugo Boss Open, большие сезоны, которые он проходил первым и уходил с кухни последним.</p>
+    <p data-lang="ua">Ярослав був кухарем за покликанням. Він збирав навколо себе команди кухарів-фрілансерів — своїх «солдатиків» — і витягував події на сотні й тисячі гостей: VIP-кейтеринг у музеї Mercedes-Benz, Hugo Boss Open, великі сезони, які він проходив першим і йшов із кухні останнім.</p>
     <p data-lang="de">Yaroslav war Koch aus Berufung. Er versammelte Teams von Freelancer-Köchen um sich — seine „Soldaten" — und stemmte Events für Hunderte und Tausende Gäste: VIP-Catering im Mercedes-Benz Museum, die Hugo Boss Open, lange Saisons, in denen er als Erster kam und als Letzter die Küche verließ.</p>
     <p data-lang="ru">И у него была мечта — <strong>Black Pearl</strong>: платформа, которая наведёт порядок в мире гастро-фриланса и будет защищать таких, как его ребята. Это имя уже жило в деле: «Black Pearl Aufträge» — так он подписывал сводки заказов своей команды, а пиратский флаг 🏴‍☠️ был его любимым смайлом. Чёрный цвет, золото и одна чёрная жемчужина — он продумал всё до мелочей, купил серверы и до последних недель сам писал код: «Мы знаем, что Black Pearl был создан нами».</p>
+    <p data-lang="ua">І в нього була мрія — <strong>Black Pearl</strong>: платформа, яка наведе лад у світі гастро-фрілансу й захищатиме таких, як його хлопці. Це ім'я вже жило у справі: «Black Pearl Aufträge» — так він підписував зведення замовлень своєї команди, а піратський прапор 🏴‍☠️ був його улюбленим смайлом. Чорний колір, золото й одна чорна перлина — він продумав усе до дрібниць, купив сервери і до останніх тижнів сам писав код: «Ми знаємо, що Black Pearl створений нами».</p>
     <p data-lang="de">Und er hatte einen Traum — <strong>Black Pearl</strong>: eine Plattform, die Ordnung in die Welt der Gastro-Freelancer bringt und Menschen wie seine Jungs schützt. Der Name lebte schon im Alltag: „Black Pearl Aufträge" — so überschrieb er die Einsatzpläne seines Teams, und die Piratenflagge 🏴‍☠️ war sein Lieblings-Emoji. Schwarz, Gold und eine einzige schwarze Perle — er hatte alles durchdacht, kaufte Server und schrieb bis zuletzt selbst am Code: „Wir wissen, dass Black Pearl von uns erschaffen wurde."</p>
     <p data-lang="ru">Своим партнёрам он сказал об этом сам: Игорю — «Погнали вместе. Если выстрелит — половина твоя», о Денисе — «Денчику будет тоже. Он шарит». Мы — Денис и Игорь — доводим Black Pearl до конца. Эта страница не случайно оформлена в чёрном и золотом: это его цвета.</p>
+    <p data-lang="ua">Своїм партнерам він сказав про це сам: Ігорю — «Погнали разом. Якщо вистрелить — половина твоя», про Дениса — «Денчику буде теж. Він шарить». Ми — Денис та Ігор — доводимо Black Pearl до кінця. Ця сторінка не випадково оформлена в чорному й золотому: це його кольори.</p>
     <p data-lang="de">Seinen Partnern hat er es selbst gesagt: zu Igor — „Los, zusammen. Wenn es einschlägt — die Hälfte gehört dir", über Denis — „Dentschik ist auch dabei. Er versteht es." Wir — Denis und Igor — bringen Black Pearl zu Ende. Diese Seite ist nicht zufällig in Schwarz und Gold gehalten: Es sind seine Farben.</p>
     <p class="note" data-lang="ru">Новости о проекте будут появляться здесь.</p>
+    <p class="note" data-lang="ua">Новини про проєкт з'являтимуться тут.</p>
     <p class="note" data-lang="de">Neuigkeiten zum Projekt erscheinen an dieser Stelle.</p>
   </div>
 </section>
@@ -571,6 +595,7 @@ Katzenbachstraße 58
 <footer>
   <div class="line"></div>
   <p data-lang="ru">Человек жив, пока жива память о нём.<br>Спасибо, что вы здесь.</p>
+  <p data-lang="ua">Людина жива, поки жива пам'ять про неї.<br>Дякуємо, що ви тут.</p>
   <p data-lang="de">Ein Mensch lebt weiter, solange die Erinnerung an ihn lebt.<br>Danke, dass du hier bist.</p>
 </footer>
 
@@ -601,15 +626,15 @@ const CONFIG = {
 
 function setLang(l){
   document.documentElement.className = l;
-  document.getElementById('btn-ru').classList.toggle('active', l==='ru');
-  document.getElementById('btn-de').classList.toggle('active', l==='de');
+  ['ru','de','ua'].forEach(x => document.getElementById('btn-'+x).classList.toggle('active', l===x));
   try{ localStorage.setItem('memlang', l); }catch(e){}
 }
 (function(){
   let saved = null;
   try{ saved = localStorage.getItem('memlang'); }catch(e){}
-  if(saved === 'ru' || saved === 'de'){ setLang(saved); return; }
-  setLang((navigator.language||'').toLowerCase().startsWith('de') ? 'de' : 'ru');
+  if(saved === 'ru' || saved === 'de' || saved === 'ua'){ setLang(saved); return; }
+  const nl = (navigator.language||'').toLowerCase();
+  setLang(nl.startsWith('de') ? 'de' : nl.startsWith('uk') ? 'ua' : 'ru');
 })();
 
 if(CONFIG.fullName) document.getElementById('name').textContent = CONFIG.fullName;
@@ -630,6 +655,7 @@ if(CONFIG.whatsapp){ rsvpBtn.href = "https://wa.me/" + CONFIG.whatsapp + "?text=
 else if(CONFIG.email){
   rsvpBtn.href = "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent("Прощание с Ярославом 10.07 / Trauerfeier 10.07") + "&body=" + rsvpMsg;
   rsvpBtn.querySelectorAll('[data-lang="ru"]').forEach(e=>e.textContent="Ответить по email");
+  rsvpBtn.querySelectorAll('[data-lang="ua"]').forEach(e=>e.textContent="Відповісти електронною поштою");
   rsvpBtn.querySelectorAll('[data-lang="de"]').forEach(e=>e.textContent="Per E-Mail antworten");
 }
 else{ rsvpBtn.style.display = "none"; }
@@ -705,6 +731,44 @@ if(!REDUCED){
   (function flameLoop(){ FLAMES.forEach(f => { if(f.on) stepFlame(f); }); requestAnimationFrame(flameLoop); })();
 }
 attachFlame(document.querySelector('.hero .candle'));
+
+/* ===== Озвучка страницы (Web Speech API; позже заменим на голос ElevenLabs) ===== */
+let speaking = false;
+function pageTextForSpeech(){
+  const lang = document.documentElement.className;
+  const parts = [];
+  document.querySelectorAll('header.hero, section, footer').forEach(sec => {
+    if(getComputedStyle(sec).display === 'none') return;
+    sec.querySelectorAll('h1,h2,h3,p,blockquote,strong,.when,.where').forEach(el => {
+      if(el.closest('form') || el.closest('.lightbox')) return;
+      const l = el.closest('[data-lang]');
+      if(l && l.getAttribute('data-lang') !== lang) return;
+      if(el.querySelector('h1,h2,h3,p,blockquote')) return;
+      const t = el.textContent.replace(/\s+/g,' ').trim();
+      if(t && !parts.includes(t)) parts.push(t);
+    });
+  });
+  return parts;
+}
+function toggleSpeech(){
+  const btn = document.getElementById('btn-listen');
+  if(speaking){ speechSynthesis.cancel(); speaking = false; btn.classList.remove('active'); return; }
+  if(!('speechSynthesis' in window)){ alert('Озвучка не поддерживается этим браузером'); return; }
+  const lang = document.documentElement.className;
+  const bcp = lang === 'de' ? 'de-DE' : lang === 'ua' ? 'uk-UA' : 'ru-RU';
+  const voices = speechSynthesis.getVoices();
+  const voice = voices.find(v => v.lang === bcp) || voices.find(v => v.lang.startsWith(bcp.slice(0,2)));
+  speechSynthesis.cancel();
+  const parts = pageTextForSpeech();
+  parts.forEach((t, i) => {
+    const u = new SpeechSynthesisUtterance(t);
+    u.lang = bcp; if(voice) u.voice = voice; u.rate = 0.95;
+    if(i === parts.length - 1) u.onend = () => { speaking = false; btn.classList.remove('active'); };
+    speechSynthesis.speak(u);
+  });
+  speaking = true; btn.classList.add('active');
+}
+if('speechSynthesis' in window){ speechSynthesis.getVoices(); }
 
 /* Свечи: раскрытие формы, отправка на email семьи, стена одобренных из candles.json */
 document.getElementById('candleToggle').addEventListener('click', () => {

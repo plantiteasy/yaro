@@ -32,8 +32,20 @@
   .lang-btn.active{border-color:var(--gold); color:var(--gold)}
   .lang-btn:hover{color:var(--gold-soft)}
 
-  /* hero */
-  header.hero{text-align:center; padding:72px 20px 56px}
+  /* hero: портрет во весь экран (вариант C) */
+  header.hero{
+    text-align:center; position:relative; min-height:92vh;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:0 20px 46px;
+    background:url('photos/moment-4.jpg') center 30%/cover no-repeat;
+  }
+  header.hero::before{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(18,20,26,.34) 0%, rgba(18,20,26,.08) 30%, rgba(18,20,26,.55) 52%, rgba(18,20,26,.94) 72%, var(--bg) 100%);
+  }
+  header.hero > *{position:relative; z-index:1}
+  .photo-frame{display:none !important}
+  header.hero .candle{margin-bottom:14px; transform:scale(.8); transform-origin:bottom center}
 
   /* ===== живая свеча: пламя — симуляция частиц на canvas ===== */
   .candle{

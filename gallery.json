@@ -1,1 +1,10 @@
-{"items":[]}
+{
+ "items": [
+  {
+   "src": "photos/work/video-1.mp4",
+   "cat": "work",
+   "by": "Игорь",
+   "type": "video"
+  }
+ ]
+}

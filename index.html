@@ -244,7 +244,9 @@
     border:1px solid var(--line); cursor:pointer; transition:transform .25s, box-shadow .25s;
     filter:saturate(.92);
   }
-  .gallery-grid img:hover{transform:scale(1.02); box-shadow:0 6px 24px rgba(0,0,0,.5)}
+  .gallery-grid img:hover, .gallery-grid video:hover{transform:scale(1.02); box-shadow:0 6px 24px rgba(0,0,0,.5)}
+  .gallery-grid video{width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px; border:1px solid var(--line); cursor:pointer}
+  .lightbox video{max-width:100%; max-height:86vh; border-radius:6px}
   .lightbox{
     display:none; position:fixed; inset:0; z-index:50; background:rgba(10,11,15,.95);
     align-items:center; justify-content:center; padding:20px; cursor:zoom-out;
@@ -485,8 +487,8 @@ Katzenbachstraße 58
   <div class="gallery-grid" id="galleryGrid"></div>
 </section>
 
-<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')">
-  <figure><img id="lightboxImg" src="" alt=""><figcaption id="lightboxBy"></figcaption></figure>
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open'); document.getElementById('lightboxVid').pause()">
+  <figure><img id="lightboxImg" src="" alt=""><video id="lightboxVid" controls playsinline hidden></video><figcaption id="lightboxBy"></figcaption></figure>
 </div>
 
 <!-- ЕГО СЛОВАМИ / IN SEINEN WORTEN -->
@@ -560,11 +562,11 @@ Katzenbachstraße 58
   <div class="card">
     <h3 data-lang="ru">Поделитесь фото и видео</h3><h3 data-lang="ua">Поділіться фото та відео</h3>
     <h3 data-lang="de">Teile Fotos und Videos</h3>
-    <p data-lang="ru">Если у вас есть фотографии или видео с Ярославом, загрузите их в общий альбом — семья соберёт их в одном месте.</p>
-    <p data-lang="ua">Якщо у вас є фотографії або відео з Ярославом, завантажте їх у спільний альбом — родина збере їх в одному місці.</p>
-    <p data-lang="de">Wenn du Fotos oder Videos mit Yaroslav hast, lade sie in das gemeinsame Album hoch — die Familie sammelt alles an einem Ort.</p>
+    <p data-lang="ru">Если у вас есть фотографии или видео с Ярославом — пришлите их семье. После просмотра они появятся в галерее «Моменты» на этой странице, с подписью, от кого они.</p>
+    <p data-lang="ua">Якщо у вас є фотографії або відео з Ярославом — надішліть їх родині. Після перегляду вони з'являться в галереї «Моменти» на цій сторінці, з підписом, від кого вони.</p>
+    <p data-lang="de">Wenn du Fotos oder Videos mit Yaroslav hast — schick sie der Familie. Nach Durchsicht erscheinen sie in der Galerie „Momente“ auf dieser Seite, mit dem Namen des Absenders.</p>
     <a class="btn" id="albumLink" target="_blank" rel="noopener" href="#">
-      <span data-lang="ru">Открыть общий альбом</span><span data-lang="de">Gemeinsames Album öffnen</span><span data-lang="ua">Відкрити спільний альбом</span>
+      <span data-lang="ru">Прислать фото или видео</span><span data-lang="de">Fotos oder Videos senden</span><span data-lang="ua">Надіслати фото або відео</span>
     </a>
   </div>
 
@@ -676,7 +678,9 @@ const pp = document.getElementById('paypalLink');
 if(CONFIG.paypal){ pp.href = CONFIG.paypal; } else { pp.closest('section').style.display='none'; }
 
 const al = document.getElementById('albumLink');
-if(CONFIG.album){ al.href = CONFIG.album; } else { al.style.display='none'; }
+if(CONFIG.album){ al.href = CONFIG.album; }
+else if(CONFIG.whatsapp){ al.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent("Фото/видео для страницы памяти Ярослава. Меня зовут: "); }
+else { al.href = "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent("Фото/видео для страницы памяти Ярослава") + "&body=" + encodeURIComponent("Меня зовут: \nКем прихожусь / откуда знаю Ярика: \nПодпись к фото (по желанию): \n\n(прикрепите файлы к этому письму)"); }
 
 /* ===== Двигатель пламени: симуляция частиц на canvas ===== */
 const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -894,22 +898,32 @@ const GALLERY = [
   {src:'photos/work/k19.jpg', cat:'free', by:'Игорь'},
   {src:'photos/work/k20.jpg', cat:'free', by:'Игорь'},
 ];
+let currentCat = 'all';
 function renderGallery(cat){
+  currentCat = cat;
   const grid = document.getElementById('galleryGrid');
   grid.innerHTML = '';
   GALLERY.filter(g => cat === 'all' || g.cat === cat).forEach(g => {
-    const img = document.createElement('img');
-    img.src = g.src; img.loading = 'lazy'; img.alt = '';
-    img.dataset.by = g.by;
-    img.addEventListener('click', () => {
-      document.getElementById('lightboxImg').src = g.src;
+    const isVid = g.type === 'video';
+    const el = document.createElement(isVid ? 'video' : 'img');
+    if(isVid){ el.src = g.src + '#t=0.5'; el.preload = 'metadata'; el.muted = true; el.playsInline = true; }
+    else { el.src = g.src; el.loading = 'lazy'; el.alt = ''; }
+    el.addEventListener('click', () => {
+      const box = document.getElementById('lightbox');
+      const img = document.getElementById('lightboxImg');
+      const vid = document.getElementById('lightboxVid');
+      if(isVid){ img.hidden = true; vid.hidden = false; vid.src = g.src; vid.play(); }
+      else { vid.pause(); vid.hidden = true; img.hidden = false; img.src = g.src; }
       document.getElementById('lightboxBy').textContent =
-        (document.documentElement.className === 'de' ? 'Foto: ' : 'Фото: ') + g.by;
-      document.getElementById('lightbox').classList.add('open');
+        (document.documentElement.className === 'de' ? 'Von: ' : 'От: ') + g.by;
+      box.classList.add('open');
     });
-    grid.appendChild(img);
+    grid.appendChild(el);
   });
 }
+fetch('gallery.json').then(r => r.ok ? r.json() : null).then(d => {
+  if(d && d.items && d.items.length){ d.items.forEach(i => GALLERY.push(i)); renderGallery(currentCat); }
+}).catch(()=>{});
 renderGallery('all');
 document.querySelectorAll('.gtab').forEach(b => b.addEventListener('click', () => {
   document.querySelectorAll('.gtab').forEach(x => x.classList.toggle('active', x === b));

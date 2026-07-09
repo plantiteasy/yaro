@@ -1,6 +1,12 @@
 {
  "items": [
   {
+   "src": "photos/reel.mp4",
+   "cat": "free",
+   "by": "Денис",
+   "type": "video"
+  },
+  {
    "src": "photos/work/video-1.mp4",
    "cat": "work",
    "by": "Игорь",

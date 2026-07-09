@@ -279,7 +279,6 @@
     <button class="lang-btn" id="btn-ru" onclick="setLang('ru')">Русский</button>
     <button class="lang-btn" id="btn-de" onclick="setLang('de')">Deutsch</button>
     <button class="lang-btn" id="btn-ua" onclick="setLang('ua')">Українська</button>
-    <button class="lang-btn" id="btn-listen" onclick="toggleSpeech()" title="Прослушать страницу">🔊 <span data-lang="ru">Слушать</span><span data-lang="de">Vorlesen</span><span data-lang="ua">Слухати</span></button>
   </div>
 </nav>
 
@@ -750,43 +749,7 @@ if(!REDUCED){
 }
 attachFlame(document.querySelector('.hero .candle'));
 
-/* ===== Озвучка страницы (Web Speech API; позже заменим на голос ElevenLabs) ===== */
-let speaking = false;
-function pageTextForSpeech(){
-  const lang = document.documentElement.className;
-  const parts = [];
-  document.querySelectorAll('header.hero, section, footer').forEach(sec => {
-    if(getComputedStyle(sec).display === 'none') return;
-    sec.querySelectorAll('h1,h2,h3,p,blockquote,strong,.when,.where').forEach(el => {
-      if(el.closest('form') || el.closest('.lightbox')) return;
-      const l = el.closest('[data-lang]');
-      if(l && l.getAttribute('data-lang') !== lang) return;
-      if(el.querySelector('h1,h2,h3,p,blockquote')) return;
-      const t = el.textContent.replace(/\s+/g,' ').trim();
-      if(t && !parts.includes(t)) parts.push(t);
-    });
-  });
-  return parts;
-}
-function toggleSpeech(){
-  const btn = document.getElementById('btn-listen');
-  if(speaking){ speechSynthesis.cancel(); speaking = false; btn.classList.remove('active'); return; }
-  if(!('speechSynthesis' in window)){ alert('Озвучка не поддерживается этим браузером'); return; }
-  const lang = document.documentElement.className;
-  const bcp = lang === 'de' ? 'de-DE' : lang === 'ua' ? 'uk-UA' : 'ru-RU';
-  const voices = speechSynthesis.getVoices();
-  const voice = voices.find(v => v.lang === bcp) || voices.find(v => v.lang.startsWith(bcp.slice(0,2)));
-  speechSynthesis.cancel();
-  const parts = pageTextForSpeech();
-  parts.forEach((t, i) => {
-    const u = new SpeechSynthesisUtterance(t);
-    u.lang = bcp; if(voice) u.voice = voice; u.rate = 0.95;
-    if(i === parts.length - 1) u.onend = () => { speaking = false; btn.classList.remove('active'); };
-    speechSynthesis.speak(u);
-  });
-  speaking = true; btn.classList.add('active');
-}
-if('speechSynthesis' in window){ speechSynthesis.getVoices(); }
+
 
 /* Свечи: раскрытие формы, отправка на email семьи, стена одобренных из candles.json */
 document.getElementById('candleToggle').addEventListener('click', () => {

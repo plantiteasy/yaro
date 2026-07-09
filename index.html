@@ -37,13 +37,17 @@
     text-align:center; position:relative; min-height:92vh;
     display:flex; flex-direction:column; justify-content:flex-end;
     padding:0 20px 46px;
-    background:url('photos/moment-4.jpg') center 30%/cover no-repeat;
+    background:url('photos/hero-poster.jpg') center 25%/cover no-repeat;
+  }
+  .hero-video{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center 25%; z-index:0;
   }
   header.hero::before{
-    content:""; position:absolute; inset:0;
+    content:""; position:absolute; inset:0; z-index:1;
     background:linear-gradient(180deg, rgba(18,20,26,.34) 0%, rgba(18,20,26,.08) 30%, rgba(18,20,26,.55) 52%, rgba(18,20,26,.94) 72%, var(--bg) 100%);
   }
-  header.hero > *{position:relative; z-index:1}
+  header.hero > *:not(.hero-video){position:relative; z-index:2}
   .photo-frame{display:none !important}
   header.hero .candle{margin-bottom:14px; transform:scale(.8); transform-origin:bottom center}
 
@@ -238,6 +242,18 @@
   .candle-form input:focus, .candle-form textarea:focus{outline:none; border-color:var(--gold)}
   .candle-form .btn{align-self:center}
 
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease}
+  .reveal.in{opacity:1; transform:none}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none} }
+
+  .ch-photo{
+    width:44%; max-width:220px; border-radius:10px; border:1px solid var(--line);
+    box-shadow:0 8px 22px rgba(0,0,0,.45);
+  }
+  .ch-photo.left{float:left; margin:6px 18px 10px 0; transform:rotate(-1.6deg)}
+  .ch-photo.right{float:right; margin:6px 0 10px 18px; transform:rotate(1.6deg)}
+  .bio-ch::after{content:""; display:block; clear:both}
+
   .gallery-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px}
   .gallery-grid img{
     width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px;
@@ -283,6 +299,9 @@
 </nav>
 
 <header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="photos/hero-poster.jpg" aria-hidden="true">
+    <source src="photos/hero.mp4" type="video/mp4">
+  </video>
   <div class="candle" data-size="big"><div class="glow"></div><canvas class="flamec"></canvas><div class="wax"><div class="wick"></div></div></div>
   <p class="pre" data-lang="ru">Светлой памяти</p>
   <p class="pre" data-lang="ua">Світлої пам'яті</p>
@@ -319,28 +338,28 @@
   </div>
 
   <div class="bio-ch">
-    <h3 data-lang="ru">Повар</h3><h3 data-lang="ua">Кухар</h3><h3 data-lang="de">Der Koch</h3>
+    <img class="ch-photo left" src="photos/work/k08.jpg" alt="" loading="lazy"><h3 data-lang="ru">Повар</h3><h3 data-lang="ua">Кухар</h3><h3 data-lang="de">Der Koch</h3>
     <p data-lang="ru">Ярослав был поваром не по диплому, а по природе. Он проходил сезоны, в которые люди ломаются: смены по четырнадцать-шестнадцать часов, ночные поезда, ножи, наточенные перед каждым сервисом. Он кормил сотни и тысячи людей — от VIP-кейтеринга в музее Mercedes-Benz до Hugo Boss Open — и собирал вокруг себя команды поваров-фрилансеров, которых с гордостью называл «мои солдатики». Он закрывал заказы своим фирменным «Auftrag zu!!!», выбивал ребятам достойные ставки, платил им из своего кармана, когда заказчики тянули с деньгами, и возвращал в профессию поваров, которых жизнь из неё выбила. Он мог один вытащить мероприятие, с которого все ушли, — и рассказать об этом так, что все смеялись.</p>
     <p data-lang="ua">Ярослав був кухарем не за дипломом, а за природою. Він проходив сезони, на яких люди ламаються: зміни по чотирнадцять-шістнадцять годин, нічні потяги, ножі, нагострені перед кожним сервісом. Він годував сотні й тисячі людей — від VIP-кейтерингу в музеї Mercedes-Benz до Hugo Boss Open — і збирав навколо себе команди кухарів-фрілансерів, яких з гордістю називав «мої солдатики». Він закривав замовлення своїм фірмовим «Auftrag zu!!!», вибивав хлопцям гідні ставки, платив їм із власної кишені, коли замовники тягнули з грошима, і повертав у професію кухарів, яких життя з неї вибило. Він міг сам витягнути захід, з якого всі пішли, — і розповісти про це так, що всі сміялися.</p>
     <p data-lang="de">Yaroslav war Koch nicht auf dem Papier, sondern von Natur aus. Er stand Saisons durch, an denen andere zerbrechen: Schichten von vierzehn, sechzehn Stunden, Nachtzüge, Messer, vor jedem Service frisch geschärft. Er bekochte Hunderte und Tausende — vom VIP-Catering im Mercedes-Benz Museum bis zu den Hugo Boss Open — und versammelte Teams von Freelancer-Köchen um sich, die er stolz „meine Soldaten" nannte. Aufträge schloss er mit seinem legendären „Auftrag zu!!!", er erkämpfte seinen Jungs faire Stundensätze, zahlte sie aus eigener Tasche, wenn Auftraggeber das Geld schuldig blieben, und holte Köche zurück in den Beruf, die das Leben herausgeworfen hatte. Er konnte ein Event allein retten, von dem alle davongelaufen waren — und hinterher so davon erzählen, dass alle lachten.</p>
   </div>
 
   <div class="bio-ch">
-    <h3 data-lang="ru">Друг</h3><h3 data-lang="ua">Друг</h3><h3 data-lang="de">Der Freund</h3>
+    <img class="ch-photo right" src="photos/moment-1.jpg" alt="" loading="lazy"><h3 data-lang="ru">Друг</h3><h3 data-lang="ua">Друг</h3><h3 data-lang="de">Der Freund</h3>
     <p data-lang="ru">Дружить он умел так, как мало кто умеет. «Я брошу всё, чем занимаюсь, и поговорю с тобой» — это не фраза, он правда бросал. Он приезжал ночью, отдавал последнее, оставлял лазанью в холодильнике друга и ключи «там, где всегда». Он вёл честный счёт до копейки и радовался как ребёнок, когда выходило «по нулям», — а сверху всё равно докидывал подарок. Когда у его людей случалась беда, он говорил: «Ты не одна. Есть я, есть Игорь». И это всегда была правда.</p>
     <p data-lang="ua">Дружити він умів так, як мало хто вміє. «Я покину все, чим займаюся, і поговорю з тобою» — це не фраза, він справді кидав усе. Він приїжджав уночі, віддавав останнє, залишав лазанью в холодильнику друга і ключі «там, де завжди». Він вів чесний рахунок до копійки і радів як дитина, коли виходило «по нулях», — а зверху все одно докидав подарунок. Коли в його людей траплялася біда, він казав: «Ти не одна. Є я, є Ігор». І це завжди була правда.</p>
     <p data-lang="de">Freundschaft konnte er wie kaum ein anderer. „Ich lasse alles stehen und liegen und rede mit dir" — das war kein Spruch, er ließ wirklich alles stehen. Er kam mitten in der Nacht, gab sein Letztes, hinterließ Lasagne im Kühlschrank des Freundes und den Schlüssel „dort, wo immer". Er führte ehrlich Buch bis auf den Cent und freute sich wie ein Kind, wenn es „auf null" aufging — und legte trotzdem noch ein Geschenk obendrauf. Wenn seinen Menschen etwas zustieß, sagte er: „Du bist nicht allein." Und das stimmte immer.</p>
   </div>
 
   <div class="bio-ch">
-    <h3 data-lang="ru">Мечтатель</h3><h3 data-lang="ua">Мрійник</h3><h3 data-lang="de">Der Träumer</h3>
+    <img class="ch-photo left" src="photos/work/k20.jpg" alt="" loading="lazy"><h3 data-lang="ru">Мечтатель</h3><h3 data-lang="ua">Мрійник</h3><h3 data-lang="de">Der Träumer</h3>
     <p data-lang="ru">Из любого объявления у него рождался проект: ферма с гусями к Рождеству, фестиваль в лесу, фудтрак со свежей рыбой на берегу моря. Две мечты были самыми упрямыми: Испания — «Давай менять жизнь, а не себя гробить! Погнали — ты и я» — и Black Pearl, платформа, которая наведёт порядок в мире гастро-фриланса и защитит таких ребят, как его повара. Чёрный цвет, золото, одна чёрная жемчужина — он продумал всё и до последних недель сам писал код. Его девиз на этот счёт был короткий: «Сейчас или некогда».</p>
     <p data-lang="ua">З будь-якого оголошення в нього народжувався проєкт: ферма з гусьми до Різдва, фестиваль у лісі, фудтрак зі свіжою рибою на березі моря. Дві мрії були найупертішими: Іспанія — «Давай міняти життя, а не себе гробити! Погнали — ти і я» — і Black Pearl, платформа, яка наведе лад у світі гастро-фрілансу та захистить таких хлопців, як його кухарі. Чорний колір, золото, одна чорна перлина — він продумав усе і до останніх тижнів сам писав код. Його девіз був короткий: «Зараз або ніколи».</p>
     <p data-lang="de">Aus jeder Kleinanzeige wurde bei ihm ein Projekt: ein Hof mit Gänsen zu Weihnachten, ein Festival im Wald, ein Foodtruck mit frischem Fisch am Meer. Zwei Träume waren die hartnäckigsten: Spanien — „Lass uns das Leben ändern, statt uns kaputtzumachen! Los — du und ich" — und Black Pearl, die Plattform, die Ordnung in die Welt der Gastro-Freelancer bringen und Jungs wie seine Köche schützen sollte. Schwarz, Gold, eine einzige schwarze Perle — er hatte alles durchdacht und schrieb bis zuletzt selbst am Code. Sein Motto dazu war kurz: „Jetzt oder nie."</p>
   </div>
 
   <div class="bio-ch">
-    <h3 data-lang="ru">Человек</h3><h3 data-lang="ua">Людина</h3><h3 data-lang="de">Der Mensch</h3>
+    <img class="ch-photo right" src="photos/work/k03.jpg" alt="" loading="lazy"><h3 data-lang="ru">Человек</h3><h3 data-lang="ua">Людина</h3><h3 data-lang="de">Der Mensch</h3>
     <p data-lang="ru">Он писал «пожайлусто» и «модно» вместо «можно», смеялся всегда тройным «😂😂😂», забыл однажды собственный день рождения и сообщил о нём на следующий день. Он мог упасть — в жизни это случалось не раз — и у него была на это своя философия: «Чем громче падаешь, тем быстрее встанешь». Он безмерно любил своих: семью, друзей, своих поваров, свою кошку. Он умел просить прощения первым. И каждому, кто был ему дорог, он успел сказать об этом прямо — словами, которые теперь читаются как завещание: «Ты для меня семья».</p>
     <p data-lang="ua">Він писав «пожайлусто» і «модно» замість «можно», сміявся завжди потрійним «😂😂😂», якось забув власний день народження і повідомив про нього наступного дня. Він міг упасти — в житті таке траплялося не раз — і мав на це власну філософію: «Чим гучніше падаєш, тим швидше встанеш». Він безмежно любив своїх: родину, друзів, своїх кухарів, свою кішку. Він умів першим просити пробачення. І кожному, хто був йому дорогий, він встиг сказати про це прямо — словами, які тепер читаються як заповіт: «Ти для мене сім'я».</p>
     <p data-lang="de">Er schrieb Wörter auf seine eigene Art, lachte immer mit dreifachem „😂😂😂" und vergaß einmal seinen eigenen Geburtstag — er erwähnte ihn beiläufig am Tag danach. Er konnte fallen — das Leben hat es ihm nicht geschenkt — und hatte seine eigene Philosophie dafür: „Je lauter du fällst, desto schneller stehst du wieder auf." Er liebte die Seinen grenzenlos: seine Familie, seine Freunde, seine Köche, seine Katze. Er konnte als Erster um Verzeihung bitten. Und jedem, der ihm wichtig war, hat er es noch direkt gesagt — mit Worten, die sich heute wie ein Vermächtnis lesen: „Du bist für mich Familie."</p>
@@ -748,6 +767,17 @@ if(!REDUCED){
   (function flameLoop(){ FLAMES.forEach(f => { if(f.on) stepFlame(f); }); requestAnimationFrame(flameLoop); })();
 }
 attachFlame(document.querySelector('.hero .candle'));
+
+/* Мягкое появление блоков при прокрутке */
+if(!REDUCED){
+  const revealEls = document.querySelectorAll('section h2, section .h2-sub, section .card, .infobox, .bio-ch, .quote-list blockquote, .words');
+  const rio = new IntersectionObserver(es => es.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); }
+  }), {threshold: .12});
+  revealEls.forEach(el => { el.classList.add('reveal'); rio.observe(el); });
+} else {
+  document.querySelector('.hero-video')?.remove();
+}
 
 
 

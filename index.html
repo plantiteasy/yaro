@@ -445,7 +445,20 @@ Katzenbachstraße 58
     </a>
     <p class="note" data-lang="ru">Сумма — любая. Важен не размер, а участие.</p>
     <p class="note" data-lang="ua">Сума — будь-яка. Важливий не розмір, а участь.</p>
+    <p class="note" data-lang="ru">Если PayPal показывает ошибку — откройте ссылку в обычном браузере (Safari/Chrome), а не внутри WhatsApp, или воспользуйтесь банковским переводом ниже.</p>
+    <p class="note" data-lang="ua">Якщо PayPal показує помилку — відкрийте посилання у звичайному браузері (Safari/Chrome), а не всередині WhatsApp, або скористайтеся банківським переказом нижче.</p>
     <p class="note" data-lang="de">Jeder Betrag zählt. Es geht nicht um die Höhe, sondern um die Geste.</p>
+    <p class="note" data-lang="de">Falls PayPal einen Fehler zeigt: Link im normalen Browser (Safari/Chrome) öffnen statt im WhatsApp-Browser — oder unten per Überweisung.</p>
+  </div>
+
+  <div class="card" id="bankCard" style="text-align:center" hidden>
+    <h3 data-lang="ru">Банковский перевод</h3>
+    <h3 data-lang="de">Banküberweisung</h3>
+    <h3 data-lang="ua">Банківський переказ</h3>
+    <p class="where" id="bankDetails" style="text-align:center"></p>
+    <button class="btn" type="button" id="copyIban">
+      <span data-lang="ru">Скопировать IBAN</span><span data-lang="de">IBAN kopieren</span><span data-lang="ua">Скопіювати IBAN</span>
+    </button>
   </div>
 </section>
 
@@ -655,6 +668,8 @@ const CONFIG = {
   whatsapp: "4917638679052",
   // Запасной номер (Игорь)
   whatsapp2: "4915233585427",
+  // Банковские реквизиты для переводов (появятся на сайте, когда заполнены)
+  bank: { name: "", iban: "", bic: "", reference: "Yaroslav" },
   // Ссылка на сбор PayPal от Николь
   paypal: "https://www.paypal.com/pools/c/9qyqLiAh3p",
   // Ссылка на общий фотоальбом (Google Photos: альбом → поделиться → "разрешить добавлять")
@@ -705,6 +720,18 @@ else{ rsvpBtn.style.display = "none"; }
 
 const pp = document.getElementById('paypalLink');
 if(CONFIG.paypal){ pp.href = CONFIG.paypal; } else { pp.closest('section').style.display='none'; }
+
+const bankCard = document.getElementById('bankCard');
+if(CONFIG.bank && CONFIG.bank.iban){
+  bankCard.hidden = false;
+  document.getElementById('bankDetails').textContent =
+    CONFIG.bank.name + "\nIBAN: " + CONFIG.bank.iban +
+    (CONFIG.bank.bic ? "\nBIC: " + CONFIG.bank.bic : "") +
+    "\nVerwendungszweck: " + CONFIG.bank.reference;
+  document.getElementById('copyIban').addEventListener('click', async (e) => {
+    try{ await navigator.clipboard.writeText(CONFIG.bank.iban.replace(/\s+/g,'')); e.target.closest('button').style.borderColor = '#7fc97f'; }catch(err){}
+  });
+}
 
 const al = document.getElementById('albumLink');
 if(CONFIG.album){ al.href = CONFIG.album; }

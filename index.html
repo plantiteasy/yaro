@@ -522,6 +522,7 @@ Katzenbachstraße 58
     <button class="gtab" data-cat="work"><span data-lang="ru">На кухне</span><span data-lang="de">In der Küche</span><span data-lang="ua">На кухні</span></button>
     <button class="gtab" data-cat="free"><span data-lang="ru">В свободное время</span><span data-lang="de">In der Freizeit</span><span data-lang="ua">У вільний час</span></button>
     <button class="gtab" data-cat="just"><span data-lang="ru">Просто Ярик</span><span data-lang="de">Einfach Yarik</span><span data-lang="ua">Просто Ярік</span></button>
+    <button class="gtab" data-cat="video"><span data-lang="ru">Видео</span><span data-lang="de">Videos</span><span data-lang="ua">Відео</span></button>
   </div>
   <div class="gallery-grid" id="galleryGrid"></div>
 </section>
@@ -934,7 +935,7 @@ function renderGallery(cat){
   currentCat = cat;
   const grid = document.getElementById('galleryGrid');
   grid.innerHTML = '';
-  GALLERY.filter(g => cat === 'all' || g.cat === cat).forEach(g => {
+  GALLERY.filter(g => cat === 'all' || (cat === 'video' ? g.type === 'video' : g.cat === cat)).forEach(g => {
     const isVid = g.type === 'video';
     const el = document.createElement(isVid ? 'video' : 'img');
     if(isVid){ el.src = g.src + '#t=0.5'; el.preload = 'metadata'; el.muted = true; el.playsInline = true; }

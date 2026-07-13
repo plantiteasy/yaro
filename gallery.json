@@ -11,6 +11,21 @@
    "cat": "work",
    "by": "Игорь",
    "type": "video"
+  },
+  {
+   "src": "photos/guests/v-dinner.mp4",
+   "cat": "free",
+   "type": "video"
+  },
+  {
+   "src": "photos/guests/v-barcelona.mp4",
+   "cat": "free",
+   "type": "video"
+  },
+  {
+   "src": "photos/guests/v-cooking.mp4",
+   "cat": "free",
+   "type": "video"
   }
  ]
 }

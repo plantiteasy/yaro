@@ -947,7 +947,7 @@ function renderGallery(cat){
       if(isVid){ img.hidden = true; vid.hidden = false; vid.src = g.src; vid.play().catch(()=>{}); }
       else { vid.pause(); vid.hidden = true; img.hidden = false; img.src = g.src; }
       document.getElementById('lightboxBy').textContent =
-        (document.documentElement.className === 'de' ? 'Von: ' : 'От: ') + g.by;
+        g.by ? (document.documentElement.className === 'de' ? 'Von: ' : 'От: ') + g.by : '';
       box.classList.add('open');
     });
     grid.appendChild(el);

@@ -1,6 +1,10 @@
 {
  "items": [
   {
+   "src": "photos/guests/g-river-smile.jpg",
+   "cat": "just"
+  },
+  {
    "src": "photos/reel.mp4",
    "cat": "free",
    "by": "Денис",
@@ -26,6 +30,54 @@
    "src": "photos/guests/v-cooking.mp4",
    "cat": "free",
    "type": "video"
+  },
+  {
+   "src": "photos/guests/g-warsaw-palace.jpg",
+   "cat": "just"
+  },
+  {
+   "src": "photos/guests/g-restaurant.jpg",
+   "cat": "just"
+  },
+  {
+   "src": "photos/guests/g-barcelona-cathedral.jpg",
+   "cat": "just"
+  },
+  {
+   "src": "photos/guests/g-river-standing.jpg",
+   "cat": "just"
+  },
+  {
+   "src": "photos/guests/g-hitchhike.jpg",
+   "cat": "free"
+  },
+  {
+   "src": "photos/guests/g-dino.jpg",
+   "cat": "free"
+  },
+  {
+   "src": "photos/guests/g-warsaw-poster.jpg",
+   "cat": "free"
+  },
+  {
+   "src": "photos/guests/g-hardrock.jpg",
+   "cat": "free"
+  },
+  {
+   "src": "photos/guests/g-mercedes-museum.jpg",
+   "cat": "free"
+  },
+  {
+   "src": "photos/guests/g-sagrada.jpg",
+   "cat": "free"
+  },
+  {
+   "src": "photos/guests/g-warsaw-bridge.jpg",
+   "cat": "free"
+  },
+  {
+   "src": "photos/guests/g-trophy.jpg",
+   "cat": "free"
   }
  ]
 }

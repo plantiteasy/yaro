@@ -38,12 +38,15 @@ for f in files:
     if size > MAX_BYTES or not (mime.startswith("image/") or mime.startswith("video/")):
         continue
     is_video = mime.startswith("video/")
+    # У каждого проекта Uploadcare свой CDN-домен (ucarecd.net) — берём его из original_file_url
+    orig = f.get("original_file_url") or f"https://ucarecdn.com/{uuid}/x"
+    cdn_base = orig.split(uuid)[0] + uuid + "/"
     if is_video:
         ext = {"video/mp4": "mp4", "video/quicktime": "mov", "video/webm": "webm"}.get(mime, "mp4")
-        src_url = f"https://ucarecdn.com/{uuid}/"
+        src_url = cdn_base
     else:
         ext = "jpg"
-        src_url = f"https://ucarecdn.com/{uuid}/-/format/jpeg/-/quality/smart/-/resize/1600x/"
+        src_url = cdn_base + "-/format/jpeg/-/quality/smart/-/resize/1600x/"
     dest = UPLOAD_DIR / f"{uuid[:8]}.{ext}"
     try:
         urllib.request.urlretrieve(src_url, dest)

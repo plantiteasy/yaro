@@ -243,6 +243,13 @@
   }
   .candle-form{margin-top:18px; text-align:left; display:flex; flex-direction:column; gap:14px}
   .candle-form label{display:flex; flex-direction:column; gap:6px; color:var(--muted); font-size:14px; font-style:italic}
+  .up-name{display:flex; flex-direction:column; gap:6px; margin:6px auto 4px; max-width:340px;
+    color:var(--muted); font-size:14px; font-style:italic; text-align:left}
+  .up-name input{
+    background:var(--bg-soft); border:1px solid var(--line); border-radius:8px;
+    color:var(--text); font-family:inherit; font-size:16px; padding:10px 12px;
+  }
+  .up-name input:focus{outline:none; border-color:var(--gold)}
   .candle-form input, .candle-form textarea{
     background:var(--bg-soft); border:1px solid var(--line); border-radius:8px;
     color:var(--text); font-family:inherit; font-size:16px; padding:10px 12px;
@@ -602,12 +609,24 @@ Katzenbachstraße 58
   <div class="card">
     <h3 data-lang="ru">Поделитесь фото и видео</h3><h3 data-lang="ua">Поділіться фото та відео</h3>
     <h3 data-lang="de">Teile Fotos und Videos</h3>
-    <p data-lang="ru">Если у вас есть фотографии или видео с Ярославом — пришлите их семье. После просмотра они появятся в галерее «Моменты» на этой странице, с подписью, от кого они.</p>
-    <p data-lang="ua">Якщо у вас є фотографії або відео з Ярославом — надішліть їх родині. Після перегляду вони з'являться в галереї «Моменти» на цій сторінці, з підписом, від кого вони.</p>
-    <p data-lang="de">Wenn du Fotos oder Videos mit Yaroslav hast — schick sie der Familie. Nach Durchsicht erscheinen sie in der Galerie „Momente“ auf dieser Seite, mit dem Namen des Absenders.</p>
-    <a class="btn" id="albumLink" target="_blank" rel="noopener" href="#">
-      <span data-lang="ru">Прислать фото или видео</span><span data-lang="de">Fotos oder Videos senden</span><span data-lang="ua">Надіслати фото або відео</span>
-    </a>
+    <p data-lang="ru">Если у вас есть фотографии или видео с Ярославом — загрузите их прямо здесь. Они появятся в галерее «Моменты» в течение часа.</p>
+    <p data-lang="ua">Якщо у вас є фотографії або відео з Ярославом — завантажте їх просто тут. Вони з'являться в галереї «Моменти» протягом години.</p>
+    <p data-lang="de">Wenn du Fotos oder Videos mit Yaroslav hast — lade sie direkt hier hoch. Sie erscheinen innerhalb einer Stunde in der Galerie „Momente“.</p>
+    <label class="up-name">
+      <span data-lang="ru">Ваше имя (по желанию — будет подписью к фото)</span>
+      <span data-lang="de">Dein Name (freiwillig — erscheint als Bildunterschrift)</span>
+      <span data-lang="ua">Ваше ім'я (за бажанням — буде підписом до фото)</span>
+      <input type="text" id="upName" maxlength="60" autocomplete="name">
+    </label>
+    <button class="btn solid" id="uploadBtn" type="button">
+      <span data-lang="ru">📷 Загрузить фото или видео</span><span data-lang="de">📷 Fotos oder Videos hochladen</span><span data-lang="ua">📷 Завантажити фото або відео</span>
+    </button>
+    <input type="file" id="uploadInput" multiple accept="image/*,video/*" hidden>
+    <p class="note" id="uploadStatus" hidden></p>
+    <p class="note">
+      <span data-lang="ru">Или пришлите в WhatsApp: </span><span data-lang="de">Oder per WhatsApp: </span><span data-lang="ua">Або надішліть у WhatsApp: </span>
+      <a id="albumLink" target="_blank" rel="noopener" href="#">WhatsApp</a>
+    </p>
   </div>
 
   <div class="card">
@@ -669,6 +688,8 @@ const CONFIG = {
   whatsapp: "4917638679052",
   // Второй номер Дениса (запасной)
   whatsapp2: "4915233585427",
+  // Uploadcare: публичный ключ для прямой загрузки гостями
+  uploadcarePubKey: "0fa32a1679480b21a57b",
   // Банковские реквизиты для переводов (появятся на сайте, когда заполнены)
   bank: { name: "Nicole Polska", iban: "DE89 5002 4024 1484 7834 01", bic: "DEFFDEFF", reference: "Yaroslav" },
   // Ссылка на сбор PayPal от Николь
@@ -960,6 +981,54 @@ document.querySelectorAll('.gtab').forEach(b => b.addEventListener('click', () =
   document.querySelectorAll('.gtab').forEach(x => x.classList.toggle('active', x === b));
   renderGallery(b.dataset.cat);
 }));
+
+/* Прямая загрузка гостями (Uploadcare), со сжатием изображений на устройстве */
+const UP_TXT = {
+  ru: {progress: (i,n)=>`Загрузка ${i} из ${n}…`, done: "Спасибо! Материалы появятся в галерее в течение часа.", part: (ok,n)=>`Загружено ${ok} из ${n}. Остальные попробуйте ещё раз.`, err: "Не получилось загрузить — попробуйте ещё раз или пришлите в WhatsApp."},
+  de: {progress: (i,n)=>`Hochladen ${i} von ${n}…`, done: "Danke! Die Dateien erscheinen innerhalb einer Stunde in der Galerie.", part: (ok,n)=>`${ok} von ${n} hochgeladen. Bitte den Rest erneut versuchen.`, err: "Upload fehlgeschlagen — bitte erneut versuchen oder per WhatsApp senden."},
+  ua: {progress: (i,n)=>`Завантаження ${i} з ${n}…`, done: "Дякуємо! Матеріали з'являться в галереї протягом години.", part: (ok,n)=>`Завантажено ${ok} з ${n}. Решту спробуйте ще раз.`, err: "Не вдалося завантажити — спробуйте ще раз або надішліть у WhatsApp."}
+};
+function upT(){ return UP_TXT[document.documentElement.className] || UP_TXT.ru; }
+async function shrinkImage(file){
+  if(!file.type.startsWith('image/') || file.size < 900000) return file;
+  try{
+    const img = await createImageBitmap(file, {imageOrientation:'from-image'});
+    const max = 2048, k = Math.min(1, max / Math.max(img.width, img.height));
+    const c = document.createElement('canvas');
+    c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    const blob = await new Promise(res => c.toBlob(res, 'image/jpeg', 0.85));
+    if(blob && blob.size < file.size)
+      return new File([blob], (file.name||'photo').replace(/\.[^.]+$/,'') + '.jpg', {type:'image/jpeg'});
+  }catch(e){}
+  return file;
+}
+const upBtn = document.getElementById('uploadBtn');
+const upInput = document.getElementById('uploadInput');
+const upStatus = document.getElementById('uploadStatus');
+upBtn.addEventListener('click', () => upInput.click());
+upInput.addEventListener('change', async () => {
+  const files = [...upInput.files];
+  if(!files.length) return;
+  upBtn.disabled = true; upStatus.hidden = false;
+  let ok = 0;
+  for(let i = 0; i < files.length; i++){
+    upStatus.textContent = upT().progress(i+1, files.length);
+    try{
+      const f = await shrinkImage(files[i]);
+      const fd = new FormData();
+      fd.append('UPLOADCARE_PUB_KEY', CONFIG.uploadcarePubKey);
+      fd.append('UPLOADCARE_STORE', '1');
+      const nm = document.getElementById('upName').value.trim();
+      if(nm) fd.append('metadata[by]', nm);
+      fd.append('file', f, f.name || files[i].name || 'file');
+      const r = await fetch('https://upload.uploadcare.com/base/', {method:'POST', body: fd});
+      if(r.ok) ok++;
+    }catch(e){}
+  }
+  upStatus.textContent = ok === files.length ? upT().done : (ok > 0 ? upT().part(ok, files.length) : upT().err);
+  upBtn.disabled = false; upInput.value = '';
+});
 
 const gb = document.getElementById('guestbookLink');
 if(CONFIG.guestbookForm){ gb.href = CONFIG.guestbookForm; }

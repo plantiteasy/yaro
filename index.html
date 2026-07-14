@@ -269,6 +269,24 @@
   .ch-photo.right{float:right; margin:6px 0 10px 18px; transform:rotate(1.6deg)}
   .bio-ch::after{content:""; display:block; clear:both}
 
+  /* хронология жизни */
+  .tl{position:relative; margin-top:6px}
+  .tl::before{
+    content:""; position:absolute; left:7px; top:6px; bottom:6px; width:1.5px;
+    background:linear-gradient(180deg, transparent, rgba(201,168,106,.55) 4%, rgba(201,168,106,.55) 96%, transparent);
+  }
+  .tl-item{position:relative; padding:0 0 26px 34px}
+  .tl-item:last-child{padding-bottom:2px}
+  .tl-item::before{
+    content:""; position:absolute; left:2px; top:6px; width:8px; height:8px; border-radius:50%;
+    background:var(--bg); border:2px solid var(--gold);
+    box-shadow:0 0 9px rgba(201,168,106,.5);
+  }
+  .tl-date{color:var(--gold); font-size:13.5px; letter-spacing:.1em; font-style:italic; margin-bottom:3px}
+  .tl-item h4{font-weight:normal; color:var(--gold-soft); font-size:17.5px; margin-bottom:5px}
+  .tl-item p{font-size:15.5px}
+  .tl-item .tl-q{color:var(--muted); font-style:italic}
+
   .gallery-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px}
   .gallery-grid img{
     width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px;
@@ -346,38 +364,148 @@
     <div class="ib-row"><span data-lang="ru">Родился</span><span data-lang="ua">Народився</span><span data-lang="de">Geboren</span><strong>14 января 1990</strong></div>
     <div class="ib-row"><span data-lang="ru">Призвание</span><span data-lang="ua">Покликання</span><span data-lang="de">Berufung</span><strong data-lang="ru">Шеф-повар</strong><strong data-lang="de">Koch mit Leib und Seele</strong><strong data-lang="ua">Шеф-кухар</strong></div>
     <div class="ib-row"><span data-lang="ru">Фирменное приветствие</span><span data-lang="ua">Фірмове вітання</span><span data-lang="de">Seine Begrüßung</span><strong>«Салют бро»</strong></div>
-    <div class="ib-row"><span data-lang="ru">Его «понял»</span><span data-lang="ua">Його «зрозумів»</span><span data-lang="de">Sein „verstanden"</span><strong>«Чэк»</strong></div>
+    <div class="ib-row"><span data-lang="ru">Его «понял»</span><span data-lang="ua">Його «зрозумів»</span><span data-lang="de">Sein „verstanden“</span><strong>«Чэк»</strong></div>
     <div class="ib-row"><span data-lang="ru">Прощался словами</span><span data-lang="ua">Прощався словами</span><span data-lang="de">Sein Abschiedsgruß</span><strong>«Обнял. На связи»</strong></div>
     <div class="ib-row"><span data-lang="ru">Мечтал</span><span data-lang="ua">Мріяв</span><span data-lang="de">Sein Traum</span><strong data-lang="ru">Black Pearl и дом у моря в Испании</strong><strong data-lang="de">Black Pearl und ein Haus am Meer in Spanien</strong><strong data-lang="ua">Black Pearl і дім біля моря в Іспанії</strong></div>
-    <div class="ib-row"><span data-lang="ru">Верил</span><span data-lang="ua">Вірив</span><span data-lang="de">Er glaubte</span><strong data-lang="ru">«Ниже пола не упаду»</strong><strong data-lang="de">„Tiefer als der Boden falle ich nicht"</strong><strong data-lang="ua">«Нижче підлоги не впаду»</strong></div>
+    <div class="ib-row"><span data-lang="ru">Верил</span><span data-lang="ua">Вірив</span><span data-lang="de">Er glaubte</span><strong data-lang="ru">«Ниже пола не упаду»</strong><strong data-lang="de">„Tiefer als der Boden falle ich nicht“</strong><strong data-lang="ua">«Нижче підлоги не впаду»</strong></div>
   </div>
 
   <div class="bio-ch">
     <img class="ch-photo left" src="photos/work/k08.jpg" alt="" loading="lazy"><h3 data-lang="ru">Повар</h3><h3 data-lang="ua">Кухар</h3><h3 data-lang="de">Der Koch</h3>
     <p data-lang="ru">Ярослав был поваром не по диплому, а по природе. Он проходил сезоны, в которые люди ломаются: смены по четырнадцать-шестнадцать часов, ночные поезда, ножи, наточенные перед каждым сервисом. Он кормил сотни и тысячи людей — от VIP-кейтеринга в музее Mercedes-Benz до Hugo Boss Open — и собирал вокруг себя команды поваров-фрилансеров, которых с гордостью называл «мои солдатики». Он закрывал заказы своим фирменным «Auftrag zu!!!», выбивал ребятам достойные ставки, платил им из своего кармана, когда заказчики тянули с деньгами, и возвращал в профессию поваров, которых жизнь из неё выбила. Он мог один вытащить мероприятие, с которого все ушли, — и рассказать об этом так, что все смеялись.</p>
     <p data-lang="ua">Ярослав був кухарем не за дипломом, а за природою. Він проходив сезони, на яких люди ламаються: зміни по чотирнадцять-шістнадцять годин, нічні потяги, ножі, нагострені перед кожним сервісом. Він годував сотні й тисячі людей — від VIP-кейтерингу в музеї Mercedes-Benz до Hugo Boss Open — і збирав навколо себе команди кухарів-фрілансерів, яких з гордістю називав «мої солдатики». Він закривав замовлення своїм фірмовим «Auftrag zu!!!», вибивав хлопцям гідні ставки, платив їм із власної кишені, коли замовники тягнули з грошима, і повертав у професію кухарів, яких життя з неї вибило. Він міг сам витягнути захід, з якого всі пішли, — і розповісти про це так, що всі сміялися.</p>
-    <p data-lang="de">Yaroslav war Koch nicht auf dem Papier, sondern von Natur aus. Er stand Saisons durch, an denen andere zerbrechen: Schichten von vierzehn, sechzehn Stunden, Nachtzüge, Messer, vor jedem Service frisch geschärft. Er bekochte Hunderte und Tausende — vom VIP-Catering im Mercedes-Benz Museum bis zu den Hugo Boss Open — und versammelte Teams von Freelancer-Köchen um sich, die er stolz „meine Soldaten" nannte. Aufträge schloss er mit seinem legendären „Auftrag zu!!!", er erkämpfte seinen Jungs faire Stundensätze, zahlte sie aus eigener Tasche, wenn Auftraggeber das Geld schuldig blieben, und holte Köche zurück in den Beruf, die das Leben herausgeworfen hatte. Er konnte ein Event allein retten, von dem alle davongelaufen waren — und hinterher so davon erzählen, dass alle lachten.</p>
+    <p data-lang="de">Yaroslav war Koch nicht auf dem Papier, sondern von Natur aus. Er stand Saisons durch, an denen andere zerbrechen: Schichten von vierzehn, sechzehn Stunden, Nachtzüge, Messer, vor jedem Service frisch geschärft. Er bekochte Hunderte und Tausende — vom VIP-Catering im Mercedes-Benz Museum bis zu den Hugo Boss Open — und versammelte Teams von Freelancer-Köchen um sich, die er stolz „meine Soldaten“ nannte. Aufträge schloss er mit seinem legendären „Auftrag zu!!!“, er erkämpfte seinen Jungs faire Stundensätze, zahlte sie aus eigener Tasche, wenn Auftraggeber das Geld schuldig blieben, und holte Köche zurück in den Beruf, die das Leben herausgeworfen hatte. Er konnte ein Event allein retten, von dem alle davongelaufen waren — und hinterher so davon erzählen, dass alle lachten.</p>
   </div>
 
   <div class="bio-ch">
     <img class="ch-photo right" src="photos/moment-1.jpg" alt="" loading="lazy"><h3 data-lang="ru">Друг</h3><h3 data-lang="ua">Друг</h3><h3 data-lang="de">Der Freund</h3>
     <p data-lang="ru">Дружить он умел так, как мало кто умеет. «Я брошу всё, чем занимаюсь, и поговорю с тобой» — это не фраза, он правда бросал. Он приезжал ночью, отдавал последнее, оставлял лазанью в холодильнике друга и ключи «там, где всегда». Он вёл честный счёт до копейки и радовался как ребёнок, когда выходило «по нулям», — а сверху всё равно докидывал подарок. Когда у его людей случалась беда, он говорил: «Ты не одна. Есть я, есть Игорь». И это всегда была правда.</p>
     <p data-lang="ua">Дружити він умів так, як мало хто вміє. «Я покину все, чим займаюся, і поговорю з тобою» — це не фраза, він справді кидав усе. Він приїжджав уночі, віддавав останнє, залишав лазанью в холодильнику друга і ключі «там, де завжди». Він вів чесний рахунок до копійки і радів як дитина, коли виходило «по нулях», — а зверху все одно докидав подарунок. Коли в його людей траплялася біда, він казав: «Ти не одна. Є я, є Ігор». І це завжди була правда.</p>
-    <p data-lang="de">Freundschaft konnte er wie kaum ein anderer. „Ich lasse alles stehen und liegen und rede mit dir" — das war kein Spruch, er ließ wirklich alles stehen. Er kam mitten in der Nacht, gab sein Letztes, hinterließ Lasagne im Kühlschrank des Freundes und den Schlüssel „dort, wo immer". Er führte ehrlich Buch bis auf den Cent und freute sich wie ein Kind, wenn es „auf null" aufging — und legte trotzdem noch ein Geschenk obendrauf. Wenn seinen Menschen etwas zustieß, sagte er: „Du bist nicht allein." Und das stimmte immer.</p>
+    <p data-lang="de">Freundschaft konnte er wie kaum ein anderer. „Ich lasse alles stehen und liegen und rede mit dir“ — das war kein Spruch, er ließ wirklich alles stehen. Er kam mitten in der Nacht, gab sein Letztes, hinterließ Lasagne im Kühlschrank des Freundes und den Schlüssel „dort, wo immer“. Er führte ehrlich Buch bis auf den Cent und freute sich wie ein Kind, wenn es „auf null“ aufging — und legte trotzdem noch ein Geschenk obendrauf. Wenn seinen Menschen etwas zustieß, sagte er: „Du bist nicht allein. Es gibt mich, und es gibt Igor.“ Und das stimmte immer.</p>
   </div>
 
   <div class="bio-ch">
     <img class="ch-photo left" src="photos/work/k20.jpg" alt="" loading="lazy"><h3 data-lang="ru">Мечтатель</h3><h3 data-lang="ua">Мрійник</h3><h3 data-lang="de">Der Träumer</h3>
     <p data-lang="ru">Из любого объявления у него рождался проект: ферма с гусями к Рождеству, фестиваль в лесу, фудтрак со свежей рыбой на берегу моря. Две мечты были самыми упрямыми: Испания — «Давай менять жизнь, а не себя гробить! Погнали — ты и я» — и Black Pearl, платформа, которая наведёт порядок в мире гастро-фриланса и защитит таких ребят, как его повара. Чёрный цвет, золото, одна чёрная жемчужина — он продумал всё и до последних недель сам писал код. Его девиз на этот счёт был короткий: «Сейчас или некогда».</p>
     <p data-lang="ua">З будь-якого оголошення в нього народжувався проєкт: ферма з гусьми до Різдва, фестиваль у лісі, фудтрак зі свіжою рибою на березі моря. Дві мрії були найупертішими: Іспанія — «Давай міняти життя, а не себе гробити! Погнали — ти і я» — і Black Pearl, платформа, яка наведе лад у світі гастро-фрілансу та захистить таких хлопців, як його кухарі. Чорний колір, золото, одна чорна перлина — він продумав усе і до останніх тижнів сам писав код. Його девіз був короткий: «Зараз або ніколи».</p>
-    <p data-lang="de">Aus jeder Kleinanzeige wurde bei ihm ein Projekt: ein Hof mit Gänsen zu Weihnachten, ein Festival im Wald, ein Foodtruck mit frischem Fisch am Meer. Zwei Träume waren die hartnäckigsten: Spanien — „Lass uns das Leben ändern, statt uns kaputtzumachen! Los — du und ich" — und Black Pearl, die Plattform, die Ordnung in die Welt der Gastro-Freelancer bringen und Jungs wie seine Köche schützen sollte. Schwarz, Gold, eine einzige schwarze Perle — er hatte alles durchdacht und schrieb bis zuletzt selbst am Code. Sein Motto dazu war kurz: „Jetzt oder nie."</p>
+    <p data-lang="de">Aus jeder Kleinanzeige wurde bei ihm ein Projekt: ein Hof mit Gänsen zu Weihnachten, ein Festival im Wald, ein Foodtruck mit frischem Fisch am Meer. Zwei Träume waren die hartnäckigsten: Spanien — „Lass uns das Leben ändern, statt uns kaputtzumachen! Los — du und ich“ — und Black Pearl, die Plattform, die Ordnung in die Welt der Gastro-Freelancer bringen und Jungs wie seine Köche schützen sollte. Schwarz, Gold, eine einzige schwarze Perle — er hatte alles durchdacht und schrieb bis zuletzt selbst am Code. Sein Motto dazu war kurz: „Jetzt oder nie.“</p>
   </div>
 
   <div class="bio-ch">
     <img class="ch-photo right" src="photos/work/k03.jpg" alt="" loading="lazy"><h3 data-lang="ru">Человек</h3><h3 data-lang="ua">Людина</h3><h3 data-lang="de">Der Mensch</h3>
     <p data-lang="ru">Он писал «пожайлусто» и «модно» вместо «можно», смеялся всегда тройным «😂😂😂», забыл однажды собственный день рождения и сообщил о нём на следующий день. Он мог упасть — в жизни это случалось не раз — и у него была на это своя философия: «Чем громче падаешь, тем быстрее встанешь». Он безмерно любил своих: семью, друзей, своих поваров, свою кошку. Он умел просить прощения первым. И каждому, кто был ему дорог, он успел сказать об этом прямо — словами, которые теперь читаются как завещание: «Ты для меня семья».</p>
     <p data-lang="ua">Він писав «пожайлусто» і «модно» замість «можно», сміявся завжди потрійним «😂😂😂», якось забув власний день народження і повідомив про нього наступного дня. Він міг упасти — в житті таке траплялося не раз — і мав на це власну філософію: «Чим гучніше падаєш, тим швидше встанеш». Він безмежно любив своїх: родину, друзів, своїх кухарів, свою кішку. Він умів першим просити пробачення. І кожному, хто був йому дорогий, він встиг сказати про це прямо — словами, які тепер читаються як заповіт: «Ти для мене сім'я».</p>
-    <p data-lang="de">Er schrieb Wörter auf seine eigene Art, lachte immer mit dreifachem „😂😂😂" und vergaß einmal seinen eigenen Geburtstag — er erwähnte ihn beiläufig am Tag danach. Er konnte fallen — das Leben hat es ihm nicht geschenkt — und hatte seine eigene Philosophie dafür: „Je lauter du fällst, desto schneller stehst du wieder auf." Er liebte die Seinen grenzenlos: seine Familie, seine Freunde, seine Köche, seine Katze. Er konnte als Erster um Verzeihung bitten. Und jedem, der ihm wichtig war, hat er es noch direkt gesagt — mit Worten, die sich heute wie ein Vermächtnis lesen: „Du bist für mich Familie."</p>
+    <p data-lang="de">Er schrieb Wörter auf seine eigene Art, lachte immer mit dreifachem „😂😂😂“ und vergaß einmal seinen eigenen Geburtstag — er erwähnte ihn beiläufig am Tag danach. Er konnte fallen — das Leben hat es ihm nicht geschenkt — und hatte seine eigene Philosophie dafür: „Je lauter du fällst, desto schneller stehst du wieder auf.“ Er liebte die Seinen grenzenlos: seine Familie, seine Freunde, seine Köche, seine Katze. Er konnte als Erster um Verzeihung bitten. Und jedem, der ihm wichtig war, hat er es noch direkt gesagt — mit Worten, die sich heute wie ein Vermächtnis lesen: „Du bist für mich Familie.“</p>
+  </div>
+</section>
+
+<!-- ХРОНОЛОГИЯ / CHRONIK -->
+<section id="chronik">
+  <h2 data-lang="ru">Хронология</h2><h2 data-lang="ua">Хронологія</h2>
+  <h2 data-lang="de">Chronik</h2>
+  <p class="h2-sub" data-lang="ru">Собрано по его собственным сообщениям — только то, что было на самом деле</p>
+  <p class="h2-sub" data-lang="ua">Зібрано за його власними повідомленнями — лише те, що було насправді</p>
+  <p class="h2-sub" data-lang="de">Zusammengetragen aus seinen eigenen Nachrichten — nur das, was wirklich war</p>
+
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">14 января 1990</div><div class="tl-date" data-lang="ua">14 січня 1990</div><div class="tl-date" data-lang="de">14. Januar 1990</div>
+      <h4 data-lang="ru">Начало</h4><h4 data-lang="ua">Початок</h4><h4 data-lang="de">Der Anfang</h4>
+      <p data-lang="ru">Родился Ярослав Польский. Для семьи — Ярик, для друзей — «бро».</p>
+      <p data-lang="ua">Народився Ярослав Польський. Для родини — Ярик, для друзів — «бро».</p>
+      <p data-lang="de">Yaroslav Polskyy wird geboren. Für die Familie — Yarik, für die Freunde — „Bro“.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">2010-е</div><div class="tl-date" data-lang="ua">2010-ті</div><div class="tl-date" data-lang="de">2010er</div>
+      <h4 data-lang="ru">Кухни Штутгарта</h4><h4 data-lang="ua">Кухні Штутгарта</h4><h4 data-lang="de">Stuttgarter Küchen</h4>
+      <p data-lang="ru">Больше десяти лет за плитой: Feinkost Böhm, потом Gourmet Compagnie и лучшие кейтеринги города. Рядом — Игорь, который привёл его во фриланс и стал ему братом.</p>
+      <p data-lang="ua">Понад десять років біля плити: Feinkost Böhm, згодом Gourmet Compagnie та найкращі кейтеринги міста. Поруч — Ігор, який привів його у фріланс і став йому братом.</p>
+      <p data-lang="de">Mehr als zehn Jahre am Herd: Feinkost Böhm, später Gourmet Compagnie und die besten Caterer der Stadt. An seiner Seite — Igor, der ihn ins Freelancing holte und ihm zum Bruder wurde.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">2024</div>
+      <h4 data-lang="ru">«Мои солдатики»</h4><h4 data-lang="ua">«Мої солдатики»</h4><h4 data-lang="de">„Meine Soldaten“</h4>
+      <p data-lang="ru">Он уже не просто повар — он собирает и ведёт команды поваров-фрилансеров. А заказы в рабочих чатах идут под именем, которому суждено стать мечтой: «Black Pearl Aufträge».</p>
+      <p data-lang="ua">Він уже не просто кухар — він збирає й веде команди кухарів-фрілансерів. А замовлення в робочих чатах ідуть під іменем, якому судилося стати мрією: «Black Pearl Aufträge».</p>
+      <p data-lang="de">Er ist längst nicht mehr nur Koch — er stellt Teams von Freelancer-Köchen zusammen und führt sie. Und die Aufträge laufen in den Arbeitschats bereits unter dem Namen, der zum Traum werden sollte: „Black Pearl Aufträge“.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">Январь 2025</div><div class="tl-date" data-lang="ua">Січень 2025</div><div class="tl-date" data-lang="de">Januar 2025</div>
+      <h4 data-lang="ru">Испания</h4><h4 data-lang="ua">Іспанія</h4><h4 data-lang="de">Spanien</h4>
+      <p data-lang="ru">Мечта, произнесённая вслух: <span class="tl-q">«Давай менять жизнь, а не себя гробить! Погнали — ты и я»</span>. Дом у моря и фудтрак со свежей рыбой на берегу.</p>
+      <p data-lang="ua">Мрія, промовлена вголос: <span class="tl-q">«Давай міняти життя, а не себе гробити! Погнали — ти і я»</span>. Дім біля моря і фудтрак зі свіжою рибою на березі.</p>
+      <p data-lang="de">Ein Traum, laut ausgesprochen: <span class="tl-q">„Lass uns das Leben ändern, statt uns kaputtzumachen! Los — du und ich.“</span> Ein Haus am Meer und ein Foodtruck mit frischem Fisch am Strand.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">Июнь 2025</div><div class="tl-date" data-lang="ua">Червень 2025</div><div class="tl-date" data-lang="de">Juni 2025</div>
+      <h4 data-lang="ru">Отпуск с сыном</h4><h4 data-lang="ua">Відпустка з сином</h4><h4 data-lang="de">Urlaub mit dem Sohn</h4>
+      <p data-lang="ru"><span class="tl-q">«С сыном мы просто оторвались. Всё, что я хотел с этого отпуска, я получил. Моя семья тут»</span>.</p>
+      <p data-lang="ua"><span class="tl-q">«З сином ми просто відірвалися. Все, що я хотів від цієї відпустки, я отримав. Моя сім'я тут»</span>.</p>
+      <p data-lang="de"><span class="tl-q">„Mein Sohn und ich haben es richtig krachen lassen. Alles, was ich von diesem Urlaub wollte, habe ich bekommen. Meine Familie ist hier.“</span></p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">Август 2025</div><div class="tl-date" data-lang="ua">Серпень 2025</div><div class="tl-date" data-lang="de">August 2025</div>
+      <h4 data-lang="ru">Black Pearl: от имени к делу</h4><h4 data-lang="ua">Black Pearl: від імені до справи</h4><h4 data-lang="de">Black Pearl: vom Namen zur Sache</h4>
+      <p data-lang="ru">Ночью 13 августа он пишет первый план своего приложения: чёрный цвет, золото, одна чёрная жемчужина — платформа, которая наведёт порядок в гастро-фрилансе и защитит таких ребят, как его повара.</p>
+      <p data-lang="ua">Вночі 13 серпня він пише перший план свого застосунку: чорний колір, золото, одна чорна перлина — платформа, яка наведе лад у гастро-фрілансі та захистить таких хлопців, як його кухарі.</p>
+      <p data-lang="de">In der Nacht des 13. August schreibt er den ersten Plan seiner App: Schwarz, Gold, eine einzige schwarze Perle — die Plattform, die Ordnung ins Gastro-Freelancing bringen und Jungs wie seine Köche schützen soll.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">Ноябрь 2025</div><div class="tl-date" data-lang="ua">Листопад 2025</div><div class="tl-date" data-lang="de">November 2025</div>
+      <h4 data-lang="ru">«Сейчас или некогда»</h4><h4 data-lang="ua">«Зараз або ніколи»</h4><h4 data-lang="de">„Jetzt oder nie“</h4>
+      <p data-lang="ru">Польша, Мальорка, Барселона — и прямо с самолёта на смену в Wagenhallen. Жить и работать на полную, не выбирая одно из двух.</p>
+      <p data-lang="ua">Польща, Мальорка, Барселона — і просто з літака на зміну у Wagenhallen. Жити і працювати на повну, не обираючи щось одне.</p>
+      <p data-lang="de">Polen, Mallorca, Barcelona — und direkt vom Flieger in die Schicht in den Wagenhallen. Leben und arbeiten mit voller Kraft, ohne sich für eines von beidem zu entscheiden.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">7 декабря 2025</div><div class="tl-date" data-lang="ua">7 грудня 2025</div><div class="tl-date" data-lang="de">7. Dezember 2025</div>
+      <h4 data-lang="ru">Первый прототип</h4><h4 data-lang="ua">Перший прототип</h4><h4 data-lang="de">Der erste Prototyp</h4>
+      <p data-lang="ru">В 23:01 он отправляет другу файл blackpearl.html — первый работающий прототип платформы, сделанный своими руками.</p>
+      <p data-lang="ua">О 23:01 він надсилає другові файл blackpearl.html — перший робочий прототип платформи, зроблений власними руками.</p>
+      <p data-lang="de">Um 23:01 Uhr schickt er einem Freund die Datei blackpearl.html — den ersten funktionierenden Prototyp seiner Plattform, mit eigenen Händen gebaut.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">26 января 2026</div><div class="tl-date" data-lang="ua">26 січня 2026</div><div class="tl-date" data-lang="de">26. Januar 2026</div>
+      <h4 data-lang="ru">Музей Mercedes-Benz</h4><h4 data-lang="ua">Музей Mercedes-Benz</h4><h4 data-lang="de">Mercedes-Benz Museum</h4>
+      <p data-lang="ru">VIP-кейтеринг на премьере нового CLS. Такие вечера он проводил так, что заказчики потом просили именно его.</p>
+      <p data-lang="ua">VIP-кейтеринг на прем'єрі нового CLS. Такі вечори він проводив так, що замовники потім просили саме його.</p>
+      <p data-lang="de">VIP-Catering zur Premiere des neuen CLS. Solche Abende machte er so, dass die Auftraggeber danach gezielt nach ihm fragten.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">Весна 2026</div><div class="tl-date" data-lang="ua">Весна 2026</div><div class="tl-date" data-lang="de">Frühjahr 2026</div>
+      <h4 data-lang="ru">Сам за кодом</h4><h4 data-lang="ua">Сам за кодом</h4><h4 data-lang="de">Selbst am Code</h4>
+      <p data-lang="ru"><span class="tl-q">«Я сейчас немного структуру навёл. Сегодня буду уже кодить»</span> — повар садится писать код своей платформы. И у него получается.</p>
+      <p data-lang="ua"><span class="tl-q">«Я зараз трохи структуру навів. Сьогодні вже кодитиму»</span> — кухар сідає писати код своєї платформи. І в нього виходить.</p>
+      <p data-lang="de"><span class="tl-q">„Ich habe jetzt etwas Struktur reingebracht. Heute wird schon programmiert“</span> — ein Koch setzt sich hin und schreibt den Code seiner eigenen Plattform. Und es gelingt ihm.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">Апрель 2026</div><div class="tl-date" data-lang="ua">Квітень 2026</div><div class="tl-date" data-lang="de">April 2026</div>
+      <h4 data-lang="ru">Европа-парк с сыном</h4><h4 data-lang="ua">Європа-парк із сином</h4><h4 data-lang="de">Europa-Park mit dem Sohn</h4>
+      <p data-lang="ru">Обещал сыну Европа-парк — и свозил. Фотографии из этой поездки — в галерее ниже.</p>
+      <p data-lang="ua">Пообіцяв синові Європа-парк — і звозив. Фотографії з цієї поїздки — у галереї нижче.</p>
+      <p data-lang="de">Er hatte seinem Sohn den Europa-Park versprochen — und hielt Wort. Die Fotos dieser Reise sind unten in der Galerie.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">5 июня 2026</div><div class="tl-date" data-lang="ua">5 червня 2026</div><div class="tl-date" data-lang="de">5. Juni 2026</div>
+      <h4>black-pearl.app</h4>
+      <p data-lang="ru">Домен, серверы, искусственный интеллект — платформа живёт в интернете. <span class="tl-q">«Мы знаем, что Black Pearl был создан нами»</span>. И благодарность Игорю: <span class="tl-q">«Разобравшись, я понял, что ты мой сенсей. Ты дал мне всё»</span>.</p>
+      <p data-lang="ua">Домен, сервери, штучний інтелект — платформа живе в інтернеті. <span class="tl-q">«Ми знаємо, що Black Pearl був створений нами»</span>. І подяка Ігореві: <span class="tl-q">«Розібравшись, я зрозумів, що ти мій сенсей. Ти дав мені все»</span>.</p>
+      <p data-lang="de">Domain, Server, künstliche Intelligenz — die Plattform ist online. <span class="tl-q">„Wir wissen, dass Black Pearl von uns erschaffen wurde.“</span> Und ein Dank an Igor: <span class="tl-q">„Als ich es durchschaut hatte, habe ich verstanden: Du bist mein Sensei. Du hast mir alles gegeben.“</span></p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">19 июня 2026</div><div class="tl-date" data-lang="ua">19 червня 2026</div><div class="tl-date" data-lang="de">19. Juni 2026</div>
+      <h4>BOSS Open</h4>
+      <p data-lang="ru">Теннисный турнир Hugo Boss в Штутгарте, около 2400 гостей — и его команда, собранная им по именам, от первого повара до последнего.</p>
+      <p data-lang="ua">Тенісний турнір Hugo Boss у Штутгарті, близько 2400 гостей — і його команда, зібрана ним поіменно, від першого кухаря до останнього.</p>
+      <p data-lang="de">Das Hugo-Boss-Tennisturnier in Stuttgart, rund 2400 Gäste — und sein Team, von ihm Mann für Mann zusammengestellt, vom ersten Koch bis zum letzten.</p>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date" data-lang="ru">30 июня 2026</div><div class="tl-date" data-lang="ua">30 червня 2026</div><div class="tl-date" data-lang="de">30. Juni 2026</div>
+      <h4 data-lang="ru">До последнего дня</h4><h4 data-lang="ua">До останнього дня</h4><h4 data-lang="de">Bis zum letzten Tag</h4>
+      <p data-lang="ru">Его не стало. За два дня до этого он договаривался о новой работе, на август собирался на Филиппины. Он строил планы до последнего дня — таким мы его и запомним.</p>
+      <p data-lang="ua">Його не стало. За два дні до цього він домовлявся про нову роботу, на серпень збирався на Філіппіни. Він будував плани до останнього дня — таким ми його і запам'ятаємо.</p>
+      <p data-lang="de">Er ist von uns gegangen. Zwei Tage zuvor hatte er noch eine neue Arbeit vereinbart, für August plante er die Philippinen. Er schmiedete Pläne bis zum letzten Tag — so werden wir ihn in Erinnerung behalten.</p>
+    </div>
   </div>
 </section>
 
@@ -528,7 +656,7 @@ Katzenbachstraße 58
     <button class="gtab active" data-cat="all"><span data-lang="ru">Все</span><span data-lang="de">Alle</span><span data-lang="ua">Усі</span></button>
     <button class="gtab" data-cat="work"><span data-lang="ru">На кухне</span><span data-lang="de">In der Küche</span><span data-lang="ua">На кухні</span></button>
     <button class="gtab" data-cat="free"><span data-lang="ru">В свободное время</span><span data-lang="de">In der Freizeit</span><span data-lang="ua">У вільний час</span></button>
-    <button class="gtab" data-cat="just"><span data-lang="ru">Просто Ярик</span><span data-lang="de">Einfach Yarik</span><span data-lang="ua">Просто Ярік</span></button>
+    <button class="gtab" data-cat="just"><span data-lang="ru">Просто Ярик</span><span data-lang="de">Einfach Yarik</span><span data-lang="ua">Просто Ярик</span></button>
     <button class="gtab" data-cat="video"><span data-lang="ru">Видео</span><span data-lang="de">Videos</span><span data-lang="ua">Відео</span></button>
   </div>
   <div class="gallery-grid" id="galleryGrid"></div>
@@ -650,13 +778,13 @@ Katzenbachstraße 58
     <div class="pearl" aria-hidden="true"></div>
     <p data-lang="ru">Ярослав был поваром по призванию. Он собирал вокруг себя команды поваров-фрилансеров — своих «солдатиков» — и вытягивал события на сотни и тысячи гостей: VIP-кейтеринг в музее Mercedes-Benz, Hugo Boss Open, большие сезоны, которые он проходил первым и уходил с кухни последним.</p>
     <p data-lang="ua">Ярослав був кухарем за покликанням. Він збирав навколо себе команди кухарів-фрілансерів — своїх «солдатиків» — і витягував події на сотні й тисячі гостей: VIP-кейтеринг у музеї Mercedes-Benz, Hugo Boss Open, великі сезони, які він проходив першим і йшов із кухні останнім.</p>
-    <p data-lang="de">Yaroslav war Koch aus Berufung. Er versammelte Teams von Freelancer-Köchen um sich — seine „Soldaten" — und stemmte Events für Hunderte und Tausende Gäste: VIP-Catering im Mercedes-Benz Museum, die Hugo Boss Open, lange Saisons, in denen er als Erster kam und als Letzter die Küche verließ.</p>
+    <p data-lang="de">Yaroslav war Koch aus Berufung. Er versammelte Teams von Freelancer-Köchen um sich — seine „Soldaten“ — und stemmte Events für Hunderte und Tausende Gäste: VIP-Catering im Mercedes-Benz Museum, die Hugo Boss Open, lange Saisons, in denen er als Erster kam und als Letzter die Küche verließ.</p>
     <p data-lang="ru">И у него была мечта — <strong>Black Pearl</strong>: платформа, которая наведёт порядок в мире гастро-фриланса и будет защищать таких, как его ребята. Это имя уже жило в деле: «Black Pearl Aufträge» — так он подписывал сводки заказов своей команды, а пиратский флаг 🏴‍☠️ был его любимым смайлом. Чёрный цвет, золото и одна чёрная жемчужина — он продумал всё до мелочей, купил серверы и до последних недель сам писал код: «Мы знаем, что Black Pearl был создан нами».</p>
     <p data-lang="ua">І в нього була мрія — <strong>Black Pearl</strong>: платформа, яка наведе лад у світі гастро-фрілансу й захищатиме таких, як його хлопці. Це ім'я вже жило у справі: «Black Pearl Aufträge» — так він підписував зведення замовлень своєї команди, а піратський прапор 🏴‍☠️ був його улюбленим смайлом. Чорний колір, золото й одна чорна перлина — він продумав усе до дрібниць, купив сервери і до останніх тижнів сам писав код: «Ми знаємо, що Black Pearl створений нами».</p>
-    <p data-lang="de">Und er hatte einen Traum — <strong>Black Pearl</strong>: eine Plattform, die Ordnung in die Welt der Gastro-Freelancer bringt und Menschen wie seine Jungs schützt. Der Name lebte schon im Alltag: „Black Pearl Aufträge" — so überschrieb er die Einsatzpläne seines Teams, und die Piratenflagge 🏴‍☠️ war sein Lieblings-Emoji. Schwarz, Gold und eine einzige schwarze Perle — er hatte alles durchdacht, kaufte Server und schrieb bis zuletzt selbst am Code: „Wir wissen, dass Black Pearl von uns erschaffen wurde."</p>
+    <p data-lang="de">Und er hatte einen Traum — <strong>Black Pearl</strong>: eine Plattform, die Ordnung in die Welt der Gastro-Freelancer bringt und Menschen wie seine Jungs schützt. Der Name lebte schon im Alltag: „Black Pearl Aufträge“ — so überschrieb er die Einsatzpläne seines Teams, und die Piratenflagge 🏴‍☠️ war sein Lieblings-Emoji. Schwarz, Gold und eine einzige schwarze Perle — er hatte alles durchdacht, kaufte Server und schrieb bis zuletzt selbst am Code: „Wir wissen, dass Black Pearl von uns erschaffen wurde.“</p>
     <p data-lang="ru">Своим партнёрам он сказал об этом сам: Игорю — «Погнали вместе. Если выстрелит — половина твоя», о Денисе — «Денчику будет тоже. Он шарит». Мы — Денис и Игорь — доводим Black Pearl до конца. Эта страница не случайно оформлена в чёрном и золотом: это его цвета.</p>
     <p data-lang="ua">Своїм партнерам він сказав про це сам: Ігорю — «Погнали разом. Якщо вистрелить — половина твоя», про Дениса — «Денчику буде теж. Він шарить». Ми — Денис та Ігор — доводимо Black Pearl до кінця. Ця сторінка не випадково оформлена в чорному й золотому: це його кольори.</p>
-    <p data-lang="de">Seinen Partnern hat er es selbst gesagt: zu Igor — „Los, zusammen. Wenn es einschlägt — die Hälfte gehört dir", über Denis — „Dentschik ist auch dabei. Er versteht es." Wir — Denis und Igor — bringen Black Pearl zu Ende. Diese Seite ist nicht zufällig in Schwarz und Gold gehalten: Es sind seine Farben.</p>
+    <p data-lang="de">Seinen Partnern hat er es selbst gesagt: zu Igor — „Los, zusammen. Wenn es einschlägt — die Hälfte gehört dir“, über Denis — „Dentschik ist auch dabei. Er versteht es.“ Wir — Denis und Igor — bringen Black Pearl zu Ende. Diese Seite ist nicht zufällig in Schwarz und Gold gehalten: Es sind seine Farben.</p>
     <p class="note" data-lang="ru">Новости о проекте будут появляться здесь.</p>
     <p class="note" data-lang="ua">Новини про проєкт з'являтимуться тут.</p>
     <p class="note" data-lang="de">Neuigkeiten zum Projekt erscheinen an dieser Stelle.</p>
@@ -708,6 +836,7 @@ function setLang(l){
   document.documentElement.setAttribute('lang', l === 'ua' ? 'uk' : l);
   ['ru','de','ua'].forEach(x => document.getElementById('btn-'+x).classList.toggle('active', l===x));
   try{ localStorage.setItem('memlang', l); }catch(e){}
+  try{ if(typeof updateWaLinks === 'function') updateWaLinks(); }catch(e){}
 }
 (function(){
   let saved = null;
@@ -723,17 +852,30 @@ if(CONFIG.photo){
   document.getElementById('photoFrame').innerHTML = '<img src="'+CONFIG.photo+'" alt="Yaroslav">';
 }
 
-const rsvpMsg = encodeURIComponent(
-  "Здравствуйте! Я по поводу прощания с Ярославом 10.07.\n" +
-  "Приду на церемонию (10:00): да/нет\n" +
-  "Приду на поминальный обед (13:00): да/нет\n" +
-  "Количество человек: \n" +
-  "Имя, фамилия: "
-);
+const WA_TXT = {
+  rsvp: {
+    ru: "Здравствуйте! Я по поводу прощания с Ярославом 10.07.\nПриду на церемонию (10:00): да/нет\nПриду на поминальный обед (13:00): да/нет\nКоличество человек: \nИмя, фамилия: ",
+    ua: "Добрий день! Я щодо прощання з Ярославом 10.07.\nПрийду на церемонію (10:00): так/ні\nПрийду на поминальний обід (13:00): так/ні\nКількість осіб: \nІм'я, прізвище: ",
+    de: "Guten Tag! Es geht um die Trauerfeier für Yaroslav am 10.07.\nIch komme zur Trauerfeier (10:00 Uhr): ja/nein\nIch komme zum Gedenkessen (13:00 Uhr): ja/nein\nAnzahl Personen: \nVor- und Nachname: "
+  },
+  album: {
+    ru: "Фото/видео для страницы памяти Ярослава. Меня зовут: ",
+    ua: "Фото/відео для сторінки пам'яті Ярослава. Мене звати: ",
+    de: "Fotos/Videos für die Gedenkseite von Yaroslav. Mein Name: "
+  }
+};
+function curLang(){ const l = document.documentElement.className; return (l==='de'||l==='ua') ? l : 'ru'; }
+function updateWaLinks(){
+  const l = curLang();
+  const rb = document.getElementById('rsvpWhatsapp');
+  if(rb && CONFIG.whatsapp) rb.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(WA_TXT.rsvp[l]);
+  const ab = document.getElementById('albumLink');
+  if(ab && !CONFIG.album && CONFIG.whatsapp) ab.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(WA_TXT.album[l]);
+}
 const rsvpBtn = document.getElementById('rsvpWhatsapp');
-if(CONFIG.whatsapp){ rsvpBtn.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + rsvpMsg; }
+if(CONFIG.whatsapp){ updateWaLinks(); }
 else if(CONFIG.email){
-  rsvpBtn.href = "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent("Прощание с Ярославом 10.07 / Trauerfeier 10.07") + "&body=" + rsvpMsg;
+  rsvpBtn.href = "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent("Прощание с Ярославом 10.07 / Trauerfeier 10.07") + "&body=" + encodeURIComponent(WA_TXT.rsvp.ru);
   rsvpBtn.querySelectorAll('[data-lang="ru"]').forEach(e=>e.textContent="Ответить по email");
   rsvpBtn.querySelectorAll('[data-lang="ua"]').forEach(e=>e.textContent="Відповісти електронною поштою");
   rsvpBtn.querySelectorAll('[data-lang="de"]').forEach(e=>e.textContent="Per E-Mail antworten");
@@ -757,7 +899,7 @@ if(CONFIG.bank && CONFIG.bank.iban){
 
 const al = document.getElementById('albumLink');
 if(CONFIG.album){ al.href = CONFIG.album; }
-else if(CONFIG.whatsapp){ al.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent("Фото/видео для страницы памяти Ярослава. Меня зовут: "); }
+else if(CONFIG.whatsapp){ updateWaLinks(); }
 else { al.href = "mailto:" + CONFIG.email + "?subject=" + encodeURIComponent("Фото/видео для страницы памяти Ярослава") + "&body=" + encodeURIComponent("Меня зовут: \nКем прихожусь / откуда знаю Ярика: \nПодпись к фото (по желанию): \n\n(прикрепите файлы к этому письму)"); }
 
 /* ===== Двигатель пламени: симуляция частиц на canvas ===== */
@@ -828,7 +970,7 @@ attachFlame(document.querySelector('.hero .candle'));
 
 /* Мягкое появление блоков при прокрутке */
 if(!REDUCED){
-  const revealEls = document.querySelectorAll('section h2, section .h2-sub, section .card, .infobox, .bio-ch, .quote-list blockquote, .words');
+  const revealEls = document.querySelectorAll('section h2, section .h2-sub, section .card, .infobox, .bio-ch, .tl-item, .quote-list blockquote, .words');
   const rio = new IntersectionObserver(es => es.forEach(e => {
     if(e.isIntersecting){ e.target.classList.add('in'); rio.unobserve(e.target); }
   }), {threshold: .12});
@@ -888,8 +1030,9 @@ document.getElementById('candleForm').addEventListener('submit', async (e) => {
   done.scrollIntoView({behavior:'smooth', block:'center'});
   if(CONFIG.whatsapp){
     const wa = document.getElementById('candleWhatsapp');
+    const cwt = {ru:["🕯 Свеча памяти","Имя","Слова","(только свеча)"], ua:["🕯 Свічка пам'яті","Ім'я","Слова","(лише свічка)"], de:["🕯 Gedenkkerze","Name","Worte","(nur eine Kerze)"]}[curLang()];
     wa.href = "https://wa.me/" + CONFIG.whatsapp + "?text=" +
-      encodeURIComponent("🕯 Свеча памяти\nИмя: " + name + "\nСлова: " + (text || "(только свеча)"));
+      encodeURIComponent(cwt[0] + "\n" + cwt[1] + ": " + name + "\n" + cwt[2] + ": " + (text || cwt[3]));
     wa.hidden = false;
   }
   btn.disabled = false;
@@ -967,7 +1110,7 @@ function renderGallery(cat){
       if(isVid){ img.hidden = true; vid.hidden = false; vid.src = g.src; vid.play().catch(()=>{}); }
       else { vid.pause(); vid.hidden = true; img.hidden = false; img.src = g.src; }
       document.getElementById('lightboxBy').textContent =
-        g.by ? (document.documentElement.className === 'de' ? 'Von: ' : 'От: ') + g.by : '';
+        g.by ? ({de:'Von: ', ua:'Від: '}[document.documentElement.className] || 'От: ') + g.by : '';
       box.classList.add('open');
     });
     grid.appendChild(el);

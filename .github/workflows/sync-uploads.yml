@@ -1,0 +1,52 @@
+name: Sync guest uploads
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: sync-uploads
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Pull new uploads from Uploadcare
+        id: pull
+        env:
+          UC_PUB: 0fa32a1679480b21a57b
+          UC_SECRET: ${{ secrets.UPLOADCARE_SECRET }}
+        run: |
+          if [ -z "$UC_SECRET" ]; then
+            echo "UPLOADCARE_SECRET fehlt — übersprungen."
+            echo "count=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          python3 .github/scripts/sync_uploads.py
+
+      - name: Commit new media
+        if: steps.pull.outputs.count != '0'
+        run: |
+          git config user.name "gedenkseite-bot"
+          git config user.email "actions@github.com"
+          git add photos/uploads gallery.json data/uploads-seen.json
+          git diff --cached --quiet || git commit -m "Гостевые материалы: +${{ steps.pull.outputs.count }} (автопубликация)"
+          git push
+
+      - name: Notify family
+        if: steps.pull.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "🖼 Новые материалы от гостей: ${{ steps.pull.outputs.count }}" \
+            --body "$(printf 'Опубликованы автоматически и уже видны в галерее:\n\n%s\n\nУдалить: откройте photos/uploads/, удалите файл и уберите его строку из gallery.json — или напишите Клоду.' "${{ steps.pull.outputs.names }}")" \
+            --repo "${{ github.repository }}"

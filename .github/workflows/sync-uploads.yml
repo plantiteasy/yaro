@@ -22,7 +22,7 @@ jobs:
       - name: Pull new uploads from Uploadcare
         id: pull
         env:
-          UC_PUB: 0fa32a1679480b21a57b
+          UC_PUB: 5ea5cdccfd0f9a3f05c0
           UC_SECRET: ${{ secrets.UPLOADCARE_SECRET }}
         run: |
           if [ -z "$UC_SECRET" ]; then

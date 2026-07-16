@@ -136,6 +136,9 @@
     color:var(--gold); border:1px solid var(--gold); background:rgba(201,168,106,.08);
   }
   .card .tag.past{color:var(--muted); border-color:var(--line); background:none; letter-spacing:.04em; text-transform:none}
+  .past-card{background:transparent; border-color:rgba(51,56,70,.5); opacity:.42; filter:grayscale(.5)}
+  .past-card:hover{opacity:.72; filter:grayscale(0); transition:opacity .3s, filter .3s}
+  .past-card .when{font-size:19px; color:var(--muted)}
   a{color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(201,168,106,.35)}
   a:hover{color:var(--gold-soft)}
   .btn{
@@ -540,7 +543,7 @@ Welfenstraße 31
     </a>
   </div>
 
-  <div class="card">
+  <div class="card past-card">
     <p class="tag past"><span data-lang="ru">Уже состоялось · 10.07</span><span data-lang="ua">Уже відбулося · 10.07</span><span data-lang="de">Bereits gewesen · 10.07</span></p>
     <h3 data-lang="ru">Церемония прощания</h3><h3 data-lang="ua">Церемонія прощання</h3>
     <h3 data-lang="de">Trauerfeier</h3>
@@ -553,7 +556,7 @@ Katzenbachstraße 58
     </a>
   </div>
 
-  <div class="card">
+  <div class="card past-card">
     <p class="tag past"><span data-lang="ru">Уже состоялось · 10.07</span><span data-lang="ua">Уже відбулося · 10.07</span><span data-lang="de">Bereits gewesen · 10.07</span></p>
     <h3 data-lang="ru">Поминальный обед</h3><h3 data-lang="ua">Поминальний обід</h3>
     <h3 data-lang="de">Leichenschmaus</h3>

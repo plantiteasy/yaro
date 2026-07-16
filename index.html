@@ -342,7 +342,7 @@
 </nav>
 
 <header class="hero">
-  <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="photos/hero-poster.jpg" aria-hidden="true">
+  <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="photos/hero-poster.jpg" aria-hidden="true">
     <source src="photos/hero.mp4" type="video/mp4">
   </video>
   <div class="candle" data-size="big"><div class="glow"></div><canvas class="flamec"></canvas><div class="wax"><div class="wick"></div></div></div>
@@ -1007,6 +1007,22 @@ if(!REDUCED){
 } else {
   document.querySelector('.hero-video')?.remove();
 }
+
+/* Hero-Video: zuverlässiger Autoplay auf Mobilgeräten (iOS/Android) */
+(function(){
+  const hv = document.querySelector('.hero-video');
+  if(!hv) return;
+  hv.muted = true; hv.defaultMuted = true; hv.playsInline = true;
+  const tryPlay = () => { const p = hv.play(); if(p && p.catch) p.catch(()=>{}); };
+  tryPlay();
+  hv.addEventListener('loadeddata', tryPlay, {once:true});
+  hv.addEventListener('canplay', tryPlay, {once:true});
+  // Fallback bei Energiesparmodus / blockiertem Autoplay: erste Interaktion startet das Video
+  const kick = () => tryPlay();
+  ['touchstart','pointerdown','click','scroll','keydown'].forEach(ev =>
+    window.addEventListener(ev, kick, {once:true, passive:true}));
+  document.addEventListener('visibilitychange', () => { if(!document.hidden) tryPlay(); });
+})();
 
 
 
